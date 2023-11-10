@@ -122,3 +122,11 @@ bool Zona::addRegrasPorc(int idProc,int idsensor, const std::string &funcao, opt
         return false;
     }
 }
+
+string Zona::listaPropriedades() const {
+    ostringstream os;
+    for(auto props : propriedades){
+        os << "propriedade: " << props.second->getid() << " : " << props.first << endl;
+    }
+    return os.str();
+}

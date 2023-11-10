@@ -5,10 +5,13 @@
 #ifndef OOP_TRABALHO_PROPRIEDADE_H
 #define OOP_TRABALHO_PROPRIEDADE_H
 #include <optional>
+#include <string>
 
 using namespace std;
 
 class Propriedade {
+    static int baseId;
+    const int id;
     double valor;
     optional<double> minimo;
     optional<double> maximo;
@@ -26,6 +29,8 @@ public:
     double getmax() const;
     [[nodiscard]]
     double getmin() const;
+    [[nodiscard]]
+    int getid() const;
 };
 
 

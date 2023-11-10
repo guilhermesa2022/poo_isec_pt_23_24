@@ -46,9 +46,7 @@ public:
 
     bool addRegrasPorc(int idProc,int idsensor, const std::string &funcao, optional<double> x, optional<double> y = {});
 
-
-
-
+    string listaPropriedades() const;
 
 
 

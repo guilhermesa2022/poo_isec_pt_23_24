@@ -13,9 +13,11 @@ int main() {
     z1.addProcessador();
     z1.addProcessador();
     z1.addRegrasPorc(0, 0, "maior", -300);
-    z1.addRegrasPorc(0, 1, "maior", -300);
+    z1.addRegrasPorc(0, 1, "melhor", -300);
 
     cout << z1.getAsString() << endl;
+
+    cout << z1.listaPropriedades();
     std::cout << "Hello, World!" << std::endl;
     return 0;
 }
