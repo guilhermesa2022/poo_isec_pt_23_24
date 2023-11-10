@@ -3,6 +3,7 @@
 //
 
 #include "Regra.h"
+#include <sstream>
 int Regra::baseId = 0;
 
 Regra::Regra(const std::string &_funcao, Sensor* _sensor, optional<double> _x, optional<double> _y)
@@ -38,4 +39,14 @@ bool Regra::entre() const {
 }
 bool Regra::naoEstre() const {
     return sensor->getvalor() < x || sensor->getvalor() > y;
+}
+
+string Regra::getAsString() const {
+    ostringstream os;
+    os << "id Da Regra: " << id << endl;
+    os << "Regra " << id << " x: " << x.value() << endl;
+    if(y.has_value())
+        os << "Regra " << id << " y: " << y.value() << endl;
+    os << "funcao : " << funcao << endl;
+    return os.str();
 }

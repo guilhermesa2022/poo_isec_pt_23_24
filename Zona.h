@@ -6,6 +6,7 @@
 #define OOP_TRABALHO_ZONA_H
 #include "Propriedade.h"
 #include "Sensor.h"
+#include "Processador.h"
 #include <string>
 #include <map>
 #include <vector>
@@ -17,6 +18,7 @@ class Zona {
     string tilulo;
     map<string, Propriedade*> propriedades;
     vector<Sensor*> sensores;
+    vector<Processador*> processadores;
 
 
 public:
@@ -39,6 +41,10 @@ public:
     ///////////////////// criar sensores
     // a funcao tem um porblema
     bool addSensor(const string& propsNome);
+
+    bool addProcessador();
+
+    bool addRegrasPorc(int idProc,int idsensor, const std::string &funcao, optional<double> x, optional<double> y = {});
 
 
 

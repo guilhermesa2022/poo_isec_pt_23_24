@@ -19,6 +19,8 @@ public:
     Regra(const string& _funcao,Sensor* _sensor, optional<double> _x, optional<double> _y = {});
     [[nodiscard]]
     bool getValorDaRegra() const;
+    [[nodiscard]]
+    string getAsString() const;
 private:
     bool igual() const;
     bool menor() const;

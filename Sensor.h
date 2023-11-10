@@ -21,6 +21,8 @@ public:
     int getid() const;
     [[nodiscard]]
     double getvalor();
+    [[nodiscard]]
+    string getAsString() const;
 
     bool medir();
 

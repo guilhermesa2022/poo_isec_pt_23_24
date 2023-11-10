@@ -19,11 +19,18 @@ Zona::Zona(string  nomeDaZona): tilulo(std::move(nomeDaZona)), id(baseId++){
 string Zona::getAsString() const {
     ////////////////////////////// colocar os nome e id da zona;
     ////////////////////////////// inumerar os propriedades;
+    ////////////////////////////// inumerar os Sensores
     ostringstream dados;
     dados << "Id da zona " << tilulo << " : " << id << endl;
     int num = 0;
     for(const auto& prop : propriedades){
-        dados << "propriedades : " << num++ << "=> " << prop.first << " / " << prop.second->getValor()<<endl;
+        dados << "Propriedades : " << num++ << "=> " << prop.first << " / " << prop.second->getValor()<<endl;
+    }
+    for(const auto& sens : sensores){
+        dados << "Sensores : " << sens->getAsString() << endl;
+    }
+    for(const auto& proc : processadores){
+        dados << "processadores : " << proc->getAsSting() << endl;
     }
 
     return dados.str();
@@ -88,3 +95,28 @@ bool Zona::addSensor(const string &propsNome) {
     return true;
 }
 
+bool Zona::addProcessador() {
+    processadores.push_back(new Processador());
+    return true;
+}
+
+bool Zona::addRegrasPorc(int idProc,int idsensor, const std::string &funcao, optional<double> x, optional<double> y) {
+    auto it = processadores.begin();
+    while (it != processadores.end()){
+        if((*it)->getid() == idProc){
+            break;
+        }
+    }
+    auto it2 = sensores.begin();
+    while (it2 != sensores.end()){
+        if((*it2)->getid() == idsensor){
+            break;
+        }
+    }
+    if(it != processadores.end() && it2 != sensores.end()){
+        (*it)->addRegra(funcao, (*it2), x, y);
+        return true;
+    }else{
+        return false;
+    }
+}
