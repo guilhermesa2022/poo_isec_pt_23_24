@@ -106,12 +106,14 @@ bool Zona::addRegrasPorc(int idProc,int idsensor, const std::string &funcao, opt
         if((*it)->getid() == idProc){
             break;
         }
+        ++it;
     }
     auto it2 = sensores.begin();
     while (it2 != sensores.end()){
         if((*it2)->getid() == idsensor){
             break;
         }
+        ++it2;
     }
     if(it != processadores.end() && it2 != sensores.end()){
         (*it)->addRegra(funcao, (*it2), x, y);

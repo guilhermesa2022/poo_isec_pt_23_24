@@ -13,6 +13,7 @@ int main() {
     z1.addProcessador();
     z1.addProcessador();
     z1.addRegrasPorc(0, 0, "maior", -300);
+    z1.addRegrasPorc(0, 1, "maior", -300);
 
     cout << z1.getAsString() << endl;
     std::cout << "Hello, World!" << std::endl;
