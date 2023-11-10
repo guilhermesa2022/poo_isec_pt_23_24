@@ -1,3 +1,10 @@
 # ninja log v5
-0	565	7212412160451698	CMakeFiles/oop_trabalho.dir/main.cpp.obj	57a5885aef6c0d0e
-575	680	7212412161564182	oop_trabalho.exe	eb474942b05e6391
+5	641	7212817860403137	CMakeFiles/oop_trabalho.dir/main.cpp.obj	57a5885aef6c0d0e
+642	795	7212817861897936	oop_trabalho.exe	34d70717913c3320
+15	506	7212817708890566	CMakeFiles/oop_trabalho.dir/Sensor.cpp.obj	10180119dd66c2c0
+10	885	7212817712700948	CMakeFiles/oop_trabalho.dir/Zona.cpp.obj	5d4c6b36bf30b63f
+3	440	7212583360239913	CMakeFiles/oop_trabalho.dir/Propriedade.cpp.obj	bbe4fdb156f5bbaa
+21	532	7212817709166290	CMakeFiles/oop_trabalho.dir/Regra.cpp.obj	cc9c483a7a93610
+8	58	7212818594459926	CMakeFiles/oop_trabalho.dir/Processador.cpp.obj	63c0659724727091
+3	608	7212818599944884	CMakeFiles/oop_trabalho.dir/main.cpp.obj	57a5885aef6c0d0e
+616	820	7212818601990856	oop_trabalho.exe	e8304f7fdc98d57c
