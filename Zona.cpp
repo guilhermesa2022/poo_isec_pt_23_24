@@ -91,12 +91,12 @@ bool Zona::addSensor(const string &propsNome) {
     if(propriedades.find(propsNome) == propriedades.end()){
         return false;
     }
-    sensores.push_back(new Sensor(propriedades[propsNome]));
+    sensores.push_back(make_shared<Sensor>(propriedades[propsNome]));
     return true;
 }
 
 bool Zona::addProcessador() {
-    processadores.push_back(new Processador());
+    processadores.push_back(make_shared<Processador>());
     return true;
 }
 

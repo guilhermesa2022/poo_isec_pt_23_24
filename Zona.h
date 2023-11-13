@@ -10,6 +10,7 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <memory>
 
 using namespace std;
 class Zona {
@@ -17,8 +18,8 @@ class Zona {
     const int id;
     string tilulo;
     map<string, Propriedade*> propriedades;
-    vector<Sensor*> sensores;
-    vector<Processador*> processadores;
+    vector<shared_ptr<Sensor>> sensores;
+    vector<shared_ptr<Processador>> processadores;
 
 
 public:

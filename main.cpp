@@ -63,18 +63,22 @@ int main() {
         z1.setPropriedades("Temperatura", -1900);
         z1.setPropriedades("Radiacao", 11100);
         z1.setPropriedades("Humidade", 11100);
-        z1.setPropriedades("Fumo", -11100);
+        z1.setPropriedades("Fumo", 10);
         z1.addSensor("Temperatura");
         z1.addSensor("Fumo");
         z1.addSensor("Radiacao");
         z1.addProcessador();
         z1.addProcessador();
         z1.addRegrasPorc(0, 0, "maior", -300);
-        z1.addRegrasPorc(0, 1, "melhor", -300);
+        z1.addRegrasPorc(0, 1, "menor", 2);
 
         cout << z1.getAsString() << endl;
 
         cout << z1.listaPropriedades();
+
+        z1.setPropriedades("Fumo", -20);
+
+        cout << z1.getAsString() << endl;
         std::cout << "Hello, World!" << std::endl;
     }
 
