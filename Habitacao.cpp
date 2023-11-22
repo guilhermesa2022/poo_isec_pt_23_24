@@ -3,12 +3,11 @@
 //
 
 #include "Habitacao.h"
-#include <iostream>
 Habitacao::Habitacao(int linhas, int colunas) {
     zonas = new Zona **[linhas];
 
-    for(int i = 0; i < linhas; i++){
-        zonas[i] =new Zona *[colunas];
+    for (int i = 0; i < linhas; ++i) {
+        zonas[i] = new Zona *[colunas];
     }
 
     for (int i = 0; i < linhas; ++i) {
@@ -16,13 +15,13 @@ Habitacao::Habitacao(int linhas, int colunas) {
             zonas[i][j] = nullptr;
         }
     }
-
 }
 
-int Habitacao::getInfo(int linha, int coluna) const {
-    return zonas[linha][coluna]->getId();
+void Habitacao::add_Zona(int linha, int coluna) {
+    zonas[linha][coluna] = new Zona("sala");
 }
 
-void Habitacao::addZona(int linha, int coluna) {
-    zonas[linha][coluna] = new Zona;
+Zona* Habitacao::get_idZona(int linha, int coluna) {
+
+    return zonas[linha][coluna];
 }

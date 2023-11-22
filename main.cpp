@@ -36,17 +36,26 @@ void atualizar_cmd(Window &Wcmd){
 }
 
 
-void atualizar_zonas_UI(int linhas, int colunas,int tamzona, Zona ***H, Window ***wzonas){
+void atualizar_zonas_UI(int linhas, int colunas,int tamzona, Habitacao &H, Window ***wzonas){
+    for (int i = 0; i < linhas; ++i) {
+        for (int j = 0; j < colunas; ++j) {
+            if(wzonas[i][j] != nullptr){
+                (wzonas[i][j])->clear();
+            }
+        }
+    }
+
     for (int i = 0; i < linhas; i++) {
         for (int j = 0; j < colunas; j++) {
-            //if(H.getInfo(i, j) != 0){
+            if(H.get_idZona(i, j) != nullptr){
 
-                H[i][j] = new Zona();
-                wzonas[i][j] = new Window(j*tamzona*2, i*tamzona, tamzona*2, tamzona);
-                *(wzonas[i][j]) << set_color(3) << H[i][j]->getId();
+                if(wzonas[i][j] == nullptr)
+                    wzonas[i][j] = new Window(j*tamzona*2, i*tamzona, tamzona*2, tamzona);
 
-                //wzona.push_back(new Window(ztam * 2 * j, i * ztam , ztam * 2, ztam));
-            //}
+                *(wzonas[i][j]) << set_color(3) << H.get_idZona(i, j)->getId();
+
+
+            }
         }
     }
 }
@@ -80,9 +89,12 @@ int main() {
         Habitacao He(p, f);
         /*for (int i = 0; i < p; ++i) {
             for (int j = 0; j < f; ++j) {
-                He.addZona(p,j);
+                He.add_Zona(i,j);
             }
         }*/
+        He.add_Zona(0,0);
+        He.add_Zona(p-1,f-1);
+        He.add_Zona(p-1,0);
         Window ***wzona2;
         wzona2 = new Window**[p];
 
@@ -95,26 +107,11 @@ int main() {
                 wzona2[i][j] = nullptr;
             }
         }
-        Zona ***zteste;
-        zteste = new Zona **[p];
-
-        for (int i = 0; i < p; ++i) {
-            zteste[i] = new Zona*[f];
-        }
-
-        for (int i = 0; i < p; ++i) {
-            for (int j = 0; j < f; ++j) {
-                zteste[i][j] = nullptr;
-            }
-        }
-
-
-
 
         int ztam = (dim[1] -3) / 4;
 
 
-        atualizar_zonas_UI(p, f,ztam,zteste, wzona2);
+        atualizar_zonas_UI(p, f,ztam,He, wzona2);
         /*for(int i = 0; i < p; i++)
             for(int j = 0; j < f; j++){
                 wzona.push_back(new Window(ztam * 2 * j, i * ztam , ztam * 2, ztam));
@@ -123,7 +120,11 @@ int main() {
         Window wdados =  Window(f * (ztam * 2) , 0, dim[0] - f*(ztam * 2), ztam*4);
         wdados << set_color(3) << f;
         Wcmd >> numeroDeZOnas;
+        He.add_Zona(p-2,0);
 
+        atualizar_zonas_UI(p, f,ztam,He, wzona2);
+
+        Wcmd >> numeroDeZOnas;
 
 
 

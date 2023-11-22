@@ -10,9 +10,8 @@ class Habitacao {
     Zona ***zonas;
 public:
     Habitacao(int linhas, int colunas);
-    int getInfo(int linha, int coluna)const;
-    void addZona(int linha, int coluna);
-
+    void add_Zona(int linha, int coluna);
+    Zona* get_idZona(int linha, int coluna);
 
 
 
