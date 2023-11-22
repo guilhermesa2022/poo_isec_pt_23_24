@@ -6,9 +6,10 @@
 #include <sstream>
 #include <new>
 #include <utility>
+#include <iostream>
 
 // inicialiar as var static;;
-int Zona::baseId = 0;
+int Zona::baseId = 1;
 
 // criar
 Zona::Zona(string  nomeDaZona): tilulo(std::move(nomeDaZona)), id(baseId++){
@@ -129,4 +130,20 @@ string Zona::listaPropriedades() const {
         os << "propriedade: " << props.second->getid() << " : " << props.first << endl;
     }
     return os.str();
+}
+
+void Zona::eleminarSensor(int id) {
+        sensores.erase(std::remove_if(sensores.begin(), sensores.end(), [&id](const std::shared_ptr<Sensor>& s) {
+            return s->getid() == id;}), sensores.end());
+}
+
+void Zona::eleminarProcessador(int id) {
+    processadores.erase(remove_if(processadores.begin(), processadores.end(), [&id](const shared_ptr<Processador> & p){
+        return  p->getid() == id;}), processadores.end());
+}
+
+Zona::~Zona() {
+    propriedades.clear();
+    sensores.clear();
+    processadores.clear();
 }

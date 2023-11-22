@@ -49,7 +49,10 @@ public:
 
     string listaPropriedades() const;
 
+    void eleminarSensor(int id);
+    void eleminarProcessador(int id);
 
+    ~Zona();
 
 private:
     void iniciarPropriedadesDefault();
