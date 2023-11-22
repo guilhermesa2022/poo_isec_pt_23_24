@@ -4,18 +4,11 @@
 #include "Zona.h"
 #include "Terminal.h"
 #include "Habitacao.h"
+#include "Interface.h"
 
 using namespace term;
 
-void print_size(Terminal& t, int* dim) {
-    dim[0] = t.getNumCols();
-    dim[1] = t.getNumRows();
-    std::ostringstream o;
-    o << "tamanho do terminal: " << std::setw(7) << t.getNumCols() << "x" << t.getNumRows();
-    std::string str = o.str();
-    t.clear();
-    t << set_color(0) << move_to(t.getNumCols()-str.length(), t.getNumRows()-1) << str;
-}
+
 
 void inicializar(Terminal& t, int *dim){
     dim[0] = t.getNumCols();
