@@ -41,6 +41,67 @@ void UI() {
     }
 }
 
+string getCmdui3(Window w) {
+    string cmd;
+    w >> cmd;
+    return cmd;
+}
+
+
+void UI3() {
+    int dim[2];
+    Terminal &t = Terminal::instance();
+    inicializar(t, dim);
+    ini_cor(t);
+    Window Wcmd = ini_cmd_UI(dim);
+    atualizar_cmd(Wcmd);
+    int l = 4;
+    int c = 4;
+    int ztam = (dim[1] - 3) / 4;
+    Window wdados = Window(l * (ztam * 2), 0, dim[0] - l * (ztam * 2), ztam * 4);
+
+    string cmd;
+    int res;
+    int posy = 0;
+    // * ... aqui.
+    while (1) {
+        atualizar_cmd(Wcmd);
+        cmd = "";
+        res = -1;
+        Comando c; // <- Exprimentar por este comando ... *
+
+        Wcmd >> cmd;
+
+
+        res = c.validaCmd(cmd);
+        switch (res) {
+            case 0:
+
+                wdados << set_color(3)<<  move_to(0,posy) << c.descricao();
+                posy += 6;
+                if (c.validaStx()) {
+                    c.execCmd();
+                    wdados << set_color(13)<< move_to(0,posy++) << "Sintaxe valida";
+                } else {
+                    wdados << set_color(13)<<move_to(0, posy++) << "Sintaxe invalida";
+                }
+                break;
+            case 1:
+                wdados << set_color(19)<< move_to(0, posy++) << "Comando nao encontrado";
+                break;
+            case 2:
+                wdados << set_color(19)<< move_to(0, posy++) << "Faltam argumentos";
+                break;
+            case 3:
+                wdados << set_color(19)<< move_to(0, posy++) << "Demasiados argumentos";
+                break;
+            default:
+                break;
+        }
+        // Comando c é destruido aqui
+    }
+}
+
 string getCmd() {
     string cmd;
     cin.clear();
@@ -48,6 +109,7 @@ string getCmd() {
     getline(cin, cmd);
     return cmd;
 }
+
 
 void atualizar_zonas_UI(int linhas, int colunas,int tamzona, Habitacao &H, Window ***wzonas){
     for (int i = 0; i < linhas; ++i) {
@@ -86,7 +148,6 @@ void UI2() {
         ini_cor(t);
         Window Wcmd = ini_cmd_UI(dim);
         atualizar_cmd(Wcmd);
-
         vector<Window *> wzona;
 
 
@@ -129,7 +190,12 @@ void UI2() {
             }*/
         atualizar_cmd(Wcmd);
         Window wdados = Window(f * (ztam * 2), 0, dim[0] - f * (ztam * 2), ztam * 4);
-        wdados << set_color(3) << f;
+
+        ostringstream os;
+        os << "id = 1\n";
+        os << "weew\n";
+        os << "weew\n";
+        wdados << set_color(3) << os.str();
         Wcmd >> numeroDeZOnas;
         He.add_Zona(p - 2, 0);
 
@@ -150,10 +216,11 @@ void UI2() {
         z1.addSensor("Radiacao");
         z1.addSensor("Radiacao");
         z1.addSensor("Radiacao");
-        /*z1.addProcessador();
+        z1.addProcessador();
         z1.addProcessador();
         z1.addRegrasPorc(0, 0, "maior", -300);
-        z1.addRegrasPorc(0, 1, "menor", 2);*/
+        z1.addRegrasPorc(0, 1, "menor", 2);
+        z1.addRegrasPorc(0, 1, "igual", 2);
 
         cout <<" eeeeeeeeeeee " << z1.getAsString() << endl;
 

@@ -7,6 +7,7 @@
 #include "Propriedade.h"
 #include "Sensor.h"
 #include "Processador.h"
+#include "Aparelho.h"
 #include <string>
 #include <map>
 #include <vector>
@@ -20,6 +21,7 @@ class Zona {
     map<string, Propriedade*> propriedades;
     vector<shared_ptr<Sensor>> sensores;
     vector<shared_ptr<Processador>> processadores;
+    vector<shared_ptr<Aparelho>> aparelhos;
 
 
 public:

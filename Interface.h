@@ -11,6 +11,9 @@ using namespace std;
 void UI();
 [[nodiscard]]
 string getCmd();
+string getCmdui3(Window w);
+void UI3();
+
 
 // gui
 void UI2();

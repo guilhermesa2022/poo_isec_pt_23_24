@@ -18,9 +18,7 @@ Zona::Zona(string  nomeDaZona): tilulo(std::move(nomeDaZona)), id(baseId++){
 
 // info
 string Zona::getAsString() const {
-    ////////////////////////////// colocar os nome e id da zona;
-    ////////////////////////////// inumerar os propriedades;
-    ////////////////////////////// inumerar os Sensores
+
     ostringstream dados;
     dados << "Id da zona " << tilulo << " : " << id << endl;
     int num = 0;
@@ -134,7 +132,7 @@ string Zona::listaPropriedades() const {
 
 void Zona::eleminarSensor(int id) {
         sensores.erase(std::remove_if(sensores.begin(), sensores.end(), [&id](const std::shared_ptr<Sensor>& s) {
-            return s->getid() == id;}), sensores.end());
+            cout << s->getid() << " ";return s->getid() == id;}), sensores.end());
 }
 
 void Zona::eleminarProcessador(int id) {
@@ -143,7 +141,10 @@ void Zona::eleminarProcessador(int id) {
 }
 
 Zona::~Zona() {
-    propriedades.clear();
+    for (auto pro: propriedades) {
+        delete pro.second;
+    }
     sensores.clear();
     processadores.clear();
+    aparelhos.clear();
 }
