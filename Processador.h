@@ -13,6 +13,7 @@ class Processador {
     static int baseId;
     const int id;
     vector<shared_ptr<Regra>> regras;
+    // ainda nao esta a ser usado para nada
     vector<weak_ptr<Aparelho>> aparelhos;
 public:
     Processador();

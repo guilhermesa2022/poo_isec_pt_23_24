@@ -9,6 +9,59 @@
 using namespace term;
 
 int main() {
+    Habitacao h(4,4);
+    Habitacao* h2 = new Habitacao(2,2);
+    delete h2;
+    cout << "===================================================== teste1 " << endl;
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            try{h.add_Zona(i,j);}catch(const char* strcatch) {cout << strcatch << endl;}
+        }
+    }
+    cout << "===================================================== teste2" << endl;
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            try{h.add_Zona(i,j); }catch(const char* strcatch) {cout << strcatch << endl;}
+        }
+    }
+    cout << "=====================================================teste 3" << endl;
+    /*
+    for (int i = 0; i < 100; ++i) {
+            try{h.removerZona(i); }catch(const char* strcatch) {cout << strcatch << endl;}
+    }
+
+     */
+    try{h.removerZona(2); }catch(const char* strcatch) {cout << strcatch << endl;}
+    cout << "===================================================== teste 4" << endl;
+            cout << h.zlista() << endl;
+    cout << "===================================================== testezcomp " << endl;
+
+    cout << h.zcomp(1) << endl;
+    cout << "===================================================== testezcomp " << endl;
+    cout << h.zcomp(2) << endl;
+    cout << "===================================================== testezcomp " << endl;
+    cout << h.zcomp(100) << endl;
+
+    cout << "===================================================== testezcomp " << endl;
+    cout << "===================================================== testezcomp " << endl;
+    cout << "===================================================== testezcomp " << endl;
+    cout << "===================================================== testezcomp " << endl;
+    cout << "===================================================== testezcomp " << endl;
+    cout << "===================================================== testezcomp " << endl;
+    cout << "===================================================== testezcomp " << endl;
+    cout << "===================================================== testezcomp " << endl;
+    cout << "===================================================== testezcomp " << endl;
+
+
+
+
+
+
+
+
+    cout << "=====================================================" << endl;
+    cout << "=====================================================" << endl;
+    cout << "=====================================================" << endl;
     Zona z2, z1("quarto");
     z1.setPropriedades("Temperatura", -1900);
     z1.setPropriedades("Radiacao", 11100);
@@ -28,13 +81,13 @@ int main() {
     cout <<" eeeeeeeeeeee " << z1.getAsString() << endl;
 
     z1.eleminarSensor(0);
+    z1.eleminarProcessador(0);
     //cout << z1.listaPropriedades();
-
+    
     //z1.setPropriedades("Fumo", -20);
 
     cout <<" eeeeeeeeeeee " << z1.getAsString() << endl;
 
-    cout << "=====================================================" << endl;
 
     Habitacao He(2, 3);
 

@@ -28,6 +28,8 @@ public:
 
     ////////////////////////////construtores da class zona
     explicit Zona(string nomeDaZona = "zona sem nome");
+    ~Zona();
+
     [[nodiscard]]
     string getAsString() const;
     [[nodiscard]]
@@ -36,6 +38,7 @@ public:
     int getId() const;
 
     /////////////////////// criar uma propriedade nova e mudar o valor a funcao set nao deve ser usar e sum para testar
+
     bool addPropriedade(const string& nomeDaPropriedades, optional<double> min);
     bool addPropriedade(const string& nomeDaPropriedades, optional<double> min, optional<double> max);
     bool addPropriedade(const string& nomeDaPropriedades);
@@ -47,14 +50,21 @@ public:
 
     bool addProcessador();
 
-    bool addRegrasPorc(int idProc,int idsensor, const std::string &funcao, optional<double> x, optional<double> y = {});
-
+    bool addRegrasPorc(const int idProc,int idsensor, const std::string &funcao, optional<double> x, optional<double> y = {});
+    [[nodiscard]]
     string listaPropriedades() const;
 
     void eleminarSensor(int id);
     void eleminarProcessador(int id);
+    void eleminarRegraPorc(const int idProc);
 
-    ~Zona();
+    // ESTE MÉTODOS SÃO PARA O MÉTODO DE DA CLASSE HABITAÇÃO
+    [[nodiscard]]
+    int numeroDeSensores() const;
+    [[nodiscard]]
+    int numeroDeProcessadores() const;
+    [[nodiscard]]
+    int numeroDeAparelhos() const;
 
 private:
     void iniciarPropriedadesDefault();
