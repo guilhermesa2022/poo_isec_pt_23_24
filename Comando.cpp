@@ -1,188 +1,204 @@
 #include "Comando.h"
-#include "utils.h"
-#include <sstream>
+
+#include <iostream>
 #include <algorithm>
+#include <sstream>
 
-// Public:
-Comando::Comando() : id(0), nome(""), corpo(), numArg(0), sintaxe("") {
-    //cout << "\n\nComando vazio criado";
-}
+using namespace std;
 
-void Comando::setId(int _id) {id = _id;}
+/***************************************** Public *****************************************/
 
-void Comando::setNome(string _nome) {nome = _nome;}
+// 0 -> valido; 1 -> invalido; 2 -> argumentos a menos; 3 -> argumentos a mais;
+int Comando::validaCmd() {
+    string cmdNome = getNomeCmd();
 
-void Comando::setNumArg(int _numArg) {numArg = _numArg;}
+    int cmdIndex = procuraEmVector(comandos, cmdNome);
+    if (cmdIndex == -1) {return 1;}
 
-void Comando::setCorpo(string _corpo) {
-    istringstream iss(_corpo);
-    string str;
-    int i = 0;
-    while (iss >> str) {
-        corpo.push_back(str);
-    }
-}
+    int cmdNumArg = countArgsCmd();
+    if (cmdNumArg < n_Args[cmdIndex] && n_Args[cmdIndex] != -1) {return 2;}
+    else if (cmdNumArg > n_Args[cmdIndex] && n_Args[cmdIndex] != -1) {return 3;}
 
-void Comando::setSintaxe(string _sintaxe) {sintaxe = _sintaxe;}
-
-// 0 -> valido; 1 -> invalido; 2 -> falta argumentos; 3 -> excesso de argumentos;
-int Comando::validaCmd(string cmd) {
-    int argCount = countArgs(cmd);
-    istringstream iss(cmd);
-    string str;
-    iss >> str;
-    int index = isInVector(comandos, str);
-    if (index == -1) {return 1;}
-    else if (argCount < nArgs[index]) {return 2;}
-    else if (argCount > nArgs[index]) {return 3;}
-    else {
-        setId(index);
-        setNome(str);
-        setNumArg(argCount);
-        setCorpo(cmd);
-        setSintaxe(stx[(index)]);
-        return 0;
-    }
+    nome = cmdNome;
+    index = cmdIndex;
+    if (n_Args[cmdIndex] == -1) {numArg = -1;}
+    else {numArg = cmdNumArg;}
+    stx = sintaxe[cmdIndex];
+    return 0;
 }
 
 bool Comando::validaStx() {
-    switch (id) {
+    vector<string> vectorInput = stringToVector(input);
+    int res;
+
+    switch (index) {
         case 1:
         case 5:
         case 7:
         case 8:
-            if (isIntegerString(corpo[1])) {return true;}
-            else {return false;}
+            if (!isIntegerString(vectorInput[1])) {return false;}
+            else {return true;}
             break;
         case 2:
         case 4:
-            if (isIntegerString(corpo[1]) && isIntegerString(corpo[2])) {return true;}
-            else {return false;}
+        case 14:
+        case 19:
+            if (!isIntegerString({vectorInput[1],vectorInput[2]})) {return false;}
+            else {return true;}
             break;
         case 9:
-            if (isIntegerString(corpo[1]) && isIntegerString(corpo[3])) {return true;}
-            else {return false;}
+            if (!isIntegerString({vectorInput[1],vectorInput[3]})) {return false;}
+            else {return true;}
             break;
         case 10:    // <- Caso especial, possibilidade de n.º de argumentos variar
-                    // (Está a funcionar tudo exceto a variante corpo[2]="p" quando o processador recebe comandos com parametros)
-            bool flag;
+            // (Está a funcionar tudo exceto a variante corpo[2]="p" quando o processador recebe comandos com parametros)
+            if (!isIntegerString(vectorInput[1])) {return false;}
 
-            if (isIntegerString(corpo[1])) {flag = true;}
-            else {return false;}
-
-            if (corpo[2] == "s") {
-                if (isInVector(sensores, corpo[3]) == -1) {
+            if (vectorInput[2] == "s") {
+                if (procuraEmVector(sensores, vectorInput[3]) == -1) {
                     cout << "\nSensor desconhecido";
-                    flag = true;
+                    return false;
                 }
-            } else if (corpo[2] == "p") {
-                Comando aux;
-                string cmd = "";
-                vector<string>::iterator itAux = corpo.begin()+3;
-                for (; itAux != corpo.end(); itAux++) {
-                    cmd += *itAux + ' ';
-                }
-                if (aux.validaCmd(cmd) == 0 && aux.validaStx()) {// <- Alerta Recursividade!!!!
-                    cout << "\nExecuta comando " << aux.nome;
-                    flag = true;
-                } else {return false;}
-            } else if (corpo[2] == "a") {
-                if (isInVector(aparelhos, corpo[3]) == -1) {
+            } else if (vectorInput[2] == "p") {
+                return avaliaCmdFromParm(vectorInput, 3);
+            } else if (vectorInput[2] == "a") {
+                if (procuraEmVector(aparelhos, vectorInput[3]) == -1) {
                     cout << "\nAparelho desconhecido";
-                    flag = true;
+                    return false;
                 }
             } else {return false;}
-            return flag;
+            return true;
             break;
         case 11:
-            if (isIntegerString(corpo[1]) && isInVector(spa, corpo[2]) != -1 && isIntegerString(corpo[3])) {return true;}
-            else {return false;}
+            if (!isIntegerString({vectorInput[1], vectorInput[2]}) || procuraEmVector(spa, vectorInput[2]) != -1) {return false;}
+            else {return true;}
             break;
-        //case 12: por fazer
-        //case 13: por fazer
-        //case 14: por fazer
-        //case 15: por fazer
-        //case 16: por fazer
-        //case 17: por fazer
-        //case 18: por fazer
-        //case 19: por fazer
-        //case 20: por fazer
-        //case 21: por fazer
-        //case 23: por fazer
+            //case 12:
+            //    if (isIntegerString(vectorInput[1]) && isIntegerString(vectorInput[2]) && isIntegerString(vectorInput[4])) {}
+            //    break;
+        case 13:
+        case 18:
+            if (!isIntegerString({vectorInput[1], vectorInput[2]})) {return false;}
+            else {return avaliaCmdFromParm(vectorInput, 3);}
+            break;
+        case 15:
+        case 16:
+        case 17:
+            if (!isIntegerString({vectorInput[1], vectorInput[2], vectorInput[3]})) {return false;}
+            else {return true;}
+            break;
         default:
             return true;
     }
     return false;
 }
 
-void Comando::execCmd() {
-    switch (id) {
-        case 24:
-            cout << "\nA sair...\n";
-            exit(1);
-            break;
-        case 25:
-            system("cls");
-            break;
-        case 26:
-            cout << "\nSintaxe dos comandos:";
-            for (string s : stx) {
-                cout << "\n-> " << s;
-            }
-            cout << '\n';
-            break;
-        default:
-            break;
-    }
-}
-
-string Comando::descricao() {
+string Comando::descricao() const {
     ostringstream oss;
-    oss << "\nId:\t\t" << id
-        << "\nNome:\t\t" << nome
-        << "\nCorpo:\t\t" << vectorToString()
-        << "\nArgumentos:\t" << numArg
-        << "\nSintaxe:\t" << sintaxe;
+    string aux;
+
+    if (numArg == -1) {aux = "Nr. indefinido";}
+    else {aux = to_string(numArg);}
+
+    oss << "\nInput:\t\t" << input
+        << "\nComando:\t" << nome
+        << "\nIndex:\t\t" << index
+        << "\nArgumentos:\t" << aux
+        << "\nSintaxe:\t" << stx
+        << '\n';
+
     return oss.str();
 }
 
-Comando::~Comando() {
-    //cout << "\nComando " << nome << " destruido";
+bool Comando::SAIR() const {
+    if (nome == "sair") {return true;}
+    else {return false;}
 }
 
-// Private:
-int Comando::countArgs(string cmd) {
-    istringstream iss(cmd);
+/***************************************** Private *****************************************/
+
+string Comando::getNomeCmd() const {
+    istringstream iss(input);
     string str;
-    int i = 0;
-    while (iss >> str) {
-        i++;
-    }
-    return i-1; // <- -1 Porque o nome do comando não conta para o n.º de argumentos
-}
-
-string Comando::vectorToString() {
-    string str = "";
-    for (string s : corpo) {
-        str += s + ' ';
-    }
+    iss >> str;
     return str;
 }
 
-bool Comando::isIntegerString(string str) {
-    istringstream iss(str);
-    int n = 0;
-    iss >> n;
-    if (iss.fail()) {return false;}
-    else {return true;}
+// Devolve -1 se nao encontrar str. Se encontrar devolve a posicao em que se encontra
+int Comando::procuraEmVector(vector<string> v, string str) const {
+    auto it = find(v.begin(), v.end(), str);
+    if (it == v.end()) {return -1;}
+    else {return distance(v.begin(), it);}
 }
 
-// -1 <- se nao encontrar str; se encontrar devolve o indice da posicao
-int Comando::isInVector(vector<string>v, string str) {
-    auto it = find(v.begin(), v.end(), str);
-    if (it != v.end()) {
-        return distance(v.begin(), it);
-    } else {
-        return -1;
+int Comando::countArgsCmd() const {
+    istringstream iss(input);
+    string str;
+    int i = 0;
+
+    while (iss >> str) {
+        i++;
     }
+
+    return i - 1; // <- -1 Porque o nome do comando não conta para o n.º de argumentos
+}
+
+bool Comando::isIntegerString(string s) const {
+    istringstream iss(s);
+    int n;
+
+    iss >> n;
+    if (iss.fail()) {return false;}
+
+    return true;
+}
+
+bool Comando::isIntegerString(initializer_list<string> list) const {
+    int n;
+
+    for (const string & s : list) {
+        istringstream iss(s);
+        iss >> n;
+        if (iss.fail()) {return false;}
+    }
+
+    return true;
+}
+
+vector<string> Comando::stringToVector(string str) {
+    vector<string> v;
+    istringstream iss(str);
+    string s;
+
+    while (!iss.fail()) {
+        iss >> s;
+        v.push_back(s);
+    }
+
+    return v;
+}
+
+bool Comando::avaliaCmdFromParm(vector<string> v, int pos) const {
+    auto it = v.begin() + pos;
+    string cmd = "";
+
+    for (; it + 1 != v.end(); it++) {
+        if (it + 2 == v.end()) {cmd += *it;}
+        else {cmd += *it + ' ';}
+    }
+
+    Comando aux(cmd);
+
+    if (aux.validaCmd() != 0 || !aux.validaStx()) {// <- Alerta Recursividade!!!!
+        cout << "\n\nComando no parametro nr." << pos << " invalido";
+        return false;
+    } else {
+        cout << "\n\nComando no parametro nr." << pos << ':';
+        cout << aux.descricao();
+        return true;
+    }
+}
+
+int Comando::getIdcomado() const {
+    return index;
 }

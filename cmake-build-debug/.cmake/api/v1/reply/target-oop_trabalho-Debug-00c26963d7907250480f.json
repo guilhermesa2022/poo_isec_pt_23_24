@@ -260,12 +260,12 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "Interface.cpp",
+			"path" : "UI.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "Interface.h",
+			"path" : "UI.h",
 			"sourceGroupIndex" : 1
 		}
 	],

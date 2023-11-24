@@ -4,11 +4,14 @@
 #include "Zona.h"
 #include "Terminal.h"
 #include "Habitacao.h"
-#include "Interface.h"
+#include "UI.h"
 
 using namespace term;
 
 int main() {
+    UI S;
+    S.START();
+    /*
     Habitacao h(4,4);
     Habitacao* h2 = new Habitacao(2,2);
     delete h2;
@@ -25,12 +28,12 @@ int main() {
         }
     }
     cout << "=====================================================teste 3" << endl;
-    /*
+
     for (int i = 0; i < 100; ++i) {
             try{h.removerZona(i); }catch(const char* strcatch) {cout << strcatch << endl;}
     }
 
-     */
+
     try{h.removerZona(2); }catch(const char* strcatch) {cout << strcatch << endl;}
     cout << "===================================================== teste 4" << endl;
             cout << h.zlista() << endl;
@@ -83,7 +86,7 @@ int main() {
     z1.eleminarSensor(0);
     z1.eleminarProcessador(0);
     //cout << z1.listaPropriedades();
-    
+
     //z1.setPropriedades("Fumo", -20);
 
     cout <<" eeeeeeeeeeee " << z1.getAsString() << endl;
@@ -91,6 +94,8 @@ int main() {
 
     Habitacao He(2, 3);
 
+
+    */
     std::cout << "Hello, World!" << std::endl;
     return 0;
 }

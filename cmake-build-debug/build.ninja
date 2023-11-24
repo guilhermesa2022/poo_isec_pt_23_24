@@ -109,8 +109,8 @@ build CMakeFiles/oop_trabalho.dir/Comando.cpp.obj: CXX_COMPILER__oop_trabalho_De
   OBJECT_DIR = CMakeFiles\oop_trabalho.dir
   OBJECT_FILE_DIR = CMakeFiles\oop_trabalho.dir
 
-build CMakeFiles/oop_trabalho.dir/Interface.cpp.obj: CXX_COMPILER__oop_trabalho_Debug C$:/Users/35193/OneDrive$ -$ ISEC/Ambiente$ de$ Trabalho/TrabalhoPratico/oop_trabalho/Interface.cpp || cmake_object_order_depends_target_oop_trabalho
-  DEP_FILE = CMakeFiles\oop_trabalho.dir\Interface.cpp.obj.d
+build CMakeFiles/oop_trabalho.dir/UI.cpp.obj: CXX_COMPILER__oop_trabalho_Debug C$:/Users/35193/OneDrive$ -$ ISEC/Ambiente$ de$ Trabalho/TrabalhoPratico/oop_trabalho/UI.cpp || cmake_object_order_depends_target_oop_trabalho
+  DEP_FILE = CMakeFiles\oop_trabalho.dir\UI.cpp.obj.d
   FLAGS = -g -std=gnu++20
   OBJECT_DIR = CMakeFiles\oop_trabalho.dir
   OBJECT_FILE_DIR = CMakeFiles\oop_trabalho.dir
@@ -123,7 +123,7 @@ build CMakeFiles/oop_trabalho.dir/Interface.cpp.obj: CXX_COMPILER__oop_trabalho_
 #############################################
 # Link the executable oop_trabalho.exe
 
-build oop_trabalho.exe: CXX_EXECUTABLE_LINKER__oop_trabalho_Debug CMakeFiles/oop_trabalho.dir/main.cpp.obj CMakeFiles/oop_trabalho.dir/Zona.cpp.obj CMakeFiles/oop_trabalho.dir/Propriedade.cpp.obj CMakeFiles/oop_trabalho.dir/Sensor.cpp.obj CMakeFiles/oop_trabalho.dir/Regra.cpp.obj CMakeFiles/oop_trabalho.dir/Processador.cpp.obj CMakeFiles/oop_trabalho.dir/Terminal.cpp.obj CMakeFiles/oop_trabalho.dir/Aparelho.cpp.obj CMakeFiles/oop_trabalho.dir/Habitacao.cpp.obj CMakeFiles/oop_trabalho.dir/Comando.cpp.obj CMakeFiles/oop_trabalho.dir/Interface.cpp.obj | C$:/Users/35193/OneDrive$ -$ ISEC/Ambiente$ de$ Trabalho/PDCurses-3.9/PDCurses-3.9/wincon/pdcurses.a
+build oop_trabalho.exe: CXX_EXECUTABLE_LINKER__oop_trabalho_Debug CMakeFiles/oop_trabalho.dir/main.cpp.obj CMakeFiles/oop_trabalho.dir/Zona.cpp.obj CMakeFiles/oop_trabalho.dir/Propriedade.cpp.obj CMakeFiles/oop_trabalho.dir/Sensor.cpp.obj CMakeFiles/oop_trabalho.dir/Regra.cpp.obj CMakeFiles/oop_trabalho.dir/Processador.cpp.obj CMakeFiles/oop_trabalho.dir/Terminal.cpp.obj CMakeFiles/oop_trabalho.dir/Aparelho.cpp.obj CMakeFiles/oop_trabalho.dir/Habitacao.cpp.obj CMakeFiles/oop_trabalho.dir/Comando.cpp.obj CMakeFiles/oop_trabalho.dir/UI.cpp.obj | C$:/Users/35193/OneDrive$ -$ ISEC/Ambiente$ de$ Trabalho/PDCurses-3.9/PDCurses-3.9/wincon/pdcurses.a
   FLAGS = -g
   LINK_LIBRARIES = "C:/Users/35193/OneDrive - ISEC/Ambiente de Trabalho/PDCurses-3.9/PDCurses-3.9/wincon/pdcurses.a"  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\oop_trabalho.dir
