@@ -3,6 +3,7 @@
 //
 
 #include "Habitacao.h"
+#include "Zona.h"
 #include <sstream>
 
                         ///////////////////////////////////////////////////////////////////
@@ -35,9 +36,15 @@ Habitacao::~Habitacao() {
 }
 
 void Habitacao::add_Zona(const int &linha, const int &coluna) {
-    if(zonas[linha][coluna] != nullptr){
-        throw "esse espaco ja esta com uma zona";
+    if(linha >= linhas || coluna >= colunas || linha < 0 || coluna < 0){
+        throw "A zona nao pode ser inicializada fora da habitacao";
     }
+
+    if(zonas[linha][coluna] != nullptr){
+        throw "Esse espaco ja esta com uma zona";
+    }
+
+
     zonas[linha][coluna] = new Zona("sala");
 }
 
@@ -52,12 +59,13 @@ void Habitacao::removerZona(const int &idZonaARemover) {
     // verificar se existe esta zona
     for (int i = 0; i < linhas; ++i) {
         for (int j = 0; j < colunas; ++j) {
-            if(zonas[i][j] != nullptr)
-                if(zonas[i][j]->getId() == idZonaARemover){
+            if(zonas[i][j] != nullptr) {
+                if (zonas[i][j]->getId() == idZonaARemover) {
                     delete zonas[i][j];
                     zonas[i][j] = nullptr;
                     return;
                 }
+            }
         }
     }
 }
@@ -87,10 +95,11 @@ string Habitacao::zcomp(const int &IDzona) const {
     int j;
     for (i = 0; i < linhas; ++i) {
         for (j = 0; j < colunas; ++j) {
-            if(zonas[i][j] != nullptr)
-                if (zonas[i][j]->getId() == IDzona){
+            if(zonas[i][j] != nullptr) {
+                if (zonas[i][j]->getId() == IDzona) {
                     goto found;
                 }
+            }
         }
     }
     return "zona nao existe";

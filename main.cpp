@@ -11,7 +11,7 @@ using namespace term;
 int main() {
     UI S;
     S.START();
-    /*
+
     Habitacao h(4,4);
     Habitacao* h2 = new Habitacao(2,2);
     delete h2;
@@ -95,7 +95,7 @@ int main() {
     Habitacao He(2, 3);
 
 
-    */
+
     std::cout << "Hello, World!" << std::endl;
     return 0;
 }

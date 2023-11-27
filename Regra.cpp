@@ -4,6 +4,7 @@
 
 #include "Regra.h"
 #include <sstream>
+#include <memory>
 int Regra::baseId = 0;
 
 Regra::Regra(const std::string &_funcao, shared_ptr<Sensor> _sensor, optional<double> _x, optional<double> _y)
@@ -28,6 +29,22 @@ bool Regra::getValorDaRegra() const {
     }
 }
 
+
+string Regra::getAsString() const {
+    ostringstream os;
+    os << "id Da Regra: " << id << endl;
+    os << "Regra " << id << " x: " << x.value() << endl;
+
+    try{os << "valor obtido : " << getValorDaRegra() << endl;}catch(const char* strcatch){os << strcatch;}
+    if(y.has_value())
+        os << "Regra " << id << " y: " << y.value() << endl;
+    os << "funcao : " << funcao << endl;
+    return os.str();
+}
+
+int Regra::getId() const {
+    return id;
+}
 bool Regra::igual() const {
     shared_ptr<Sensor> sensor = Psensor.lock();
     if(sensor){
@@ -68,20 +85,4 @@ bool Regra::naoEstre() const {
     }else{
         throw "Erro: A regra não tem nenhum sensor associado.";
     }
-}
-
-string Regra::getAsString() const {
-    ostringstream os;
-    os << "id Da Regra: " << id << endl;
-    os << "Regra " << id << " x: " << x.value() << endl;
-
-    try{os << "valor obtido : " << getValorDaRegra() << endl;}catch(const char* strcatch){os << strcatch;}
-    if(y.has_value())
-        os << "Regra " << id << " y: " << y.value() << endl;
-    os << "funcao : " << funcao << endl;
-    return os.str();
-}
-
-int Regra::getId() const {
-    return id;
 }

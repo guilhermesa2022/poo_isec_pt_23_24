@@ -3,6 +3,10 @@
 //
 
 #include "Processador.h"
+#include "Regra.h"
+#include "Aparelho.h"
+#include <vector>
+#include <memory>
 #include <sstream>
 #include <iostream>
 int Processador::baseId = 0;

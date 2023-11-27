@@ -4,7 +4,8 @@
 
 #include "Propriedade.h"
 #include <map>
-#include <sstream>
+#include <optional>
+
 int Propriedade::baseId = 0;
 
 Propriedade::Propriedade(optional<double> min, optional<double> max): minimo(min), maximo(max), valor(0), id(baseId++){

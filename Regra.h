@@ -9,12 +9,6 @@
 #include <optional>
 #include <memory>
 class Regra {
-    static int baseId;
-    const int id;
-    const string funcao;
-    optional<double> x;
-    optional<double> y;
-    weak_ptr<Sensor> Psensor;
 public:
     Regra(const string& _funcao, shared_ptr<Sensor> _sensor, optional<double> _x, optional<double> _y = {});
     ~Regra();
@@ -36,6 +30,14 @@ private:
     bool entre() const;
     [[nodiscard]]
     bool naoEstre() const;
+
+    static int baseId;
+    const int id;
+    const string funcao;
+    optional<double> x;
+    optional<double> y;
+    weak_ptr<Sensor> Psensor;
+
 
 };
 

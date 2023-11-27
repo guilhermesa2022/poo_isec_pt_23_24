@@ -10,22 +10,27 @@
 using namespace std;
 
 class Sensor {
+public:
+    Sensor(Propriedade* propriedade);
+
+    ~Sensor();
+
+    [[nodiscard]]
+    int getid() const;
+
+    [[nodiscard]]
+    double getvalor();
+
+    bool medir();
+
+    [[nodiscard]]
+    string getAsString() const;
+
+private:
     static int baseId;
     const int id;
     Propriedade* propriedade;
     double ultimaMedicao;
-public:
-    Sensor(Propriedade* propriedade);
-    ~Sensor();
-    [[nodiscard]]
-    int getid() const;
-    [[nodiscard]]
-    double getvalor();
-    [[nodiscard]]
-    string getAsString() const;
-    bool medir();
-
-
 };
 
 
