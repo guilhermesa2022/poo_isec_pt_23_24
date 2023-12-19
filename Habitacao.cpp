@@ -1,10 +1,10 @@
-//
-// Created by 35193 on 21/11/2023.
-//
-
 #include "Habitacao.h"
 #include "Zona.h"
+
 #include <sstream>
+
+/***************************************** Public *****************************************/
+
 
                         ///////////////////////////////////////////////////////////////////
                         /////////// Comandos para gerir habitação e zonas//////////////////
@@ -23,6 +23,7 @@ Habitacao::Habitacao(const int &_linhas, const int &_colunas): linhas(_linhas), 
         }
     }
 }
+
 Habitacao::~Habitacao() {
     for (int i = 0; i < linhas; ++i) {
         for (int j = 0; j < colunas; ++j) {
@@ -36,38 +37,36 @@ Habitacao::~Habitacao() {
 }
 
 void Habitacao::add_Zona(const int &linha, const int &coluna) {
-    if(linha >= linhas || coluna >= colunas || linha < 0 || coluna < 0){
-        throw "A zona nao pode ser inicializada fora da habitacao";
+    if (!validaCoord(linha, coluna)) {
+        throw "Zona está fora dos limites da habitação";
     }
-
-    if(zonas[linha][coluna] != nullptr){
-        throw "Esse espaco ja esta com uma zona";
+    if (zonas[linha][coluna] != nullptr) {
+        throw "Ja existe uma Zona nesse lugar";
     }
-
 
     zonas[linha][coluna] = new Zona("sala");
 }
-
-Zona* Habitacao::get_idZona(int linha, int coluna) const {
-    //if(linha < linhas && coluna < colunas)
-        return zonas[linha][coluna];
-    return nullptr;
-}
-
 
 void Habitacao::removerZona(const int &idZonaARemover) {
     // verificar se existe esta zona
     for (int i = 0; i < linhas; ++i) {
         for (int j = 0; j < colunas; ++j) {
-            if(zonas[i][j] != nullptr) {
-                if (zonas[i][j]->getId() == idZonaARemover) {
+            if(zonas[i][j] != nullptr)
+                if(zonas[i][j]->getId() == idZonaARemover){
                     delete zonas[i][j];
                     zonas[i][j] = nullptr;
                     return;
                 }
-            }
         }
     }
+}
+
+Zona* Habitacao::get_ptrZona(int linha, int coluna) const {
+    if (linha < linhas || coluna < colunas) {
+
+    }
+    return zonas[linha][coluna];
+    return nullptr;
 }
 
 string Habitacao::zlista() const {
@@ -96,16 +95,25 @@ string Habitacao::zcomp(const int &IDzona) const {
     for (i = 0; i < linhas; ++i) {
         for (j = 0; j < colunas; ++j) {
             if(zonas[i][j] != nullptr) {
-                if (zonas[i][j]->getId() == IDzona) {
+                if (zonas[i][j]->getId() == IDzona){
                     goto found;
                 }
             }
         }
     }
     return "zona nao existe";
-
     found:
-
     return  zonas[i][j]->getAsString();
+}
 
+[[nodiscard]]
+int Habitacao::getLin() {return linhas;}
+
+[[nodiscard]]
+int Habitacao::getCol() {return colunas;}
+
+bool Habitacao::validaCoord(int col, int lin) const {
+    if (col < 0 || lin < 0) {return false;}
+    if (col >= colunas || lin >= linhas) {return false;}
+    return true;
 }
