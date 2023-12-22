@@ -1,7 +1,6 @@
 #include "Comando.h"
 #include "Habitacao.h"
 
-#include <iostream>
 #include <vector>
 #include <algorithm>
 #include <sstream>
@@ -102,7 +101,7 @@ int Comando::procuraEmVector(vector<string> v, string str) const {
 }
 
 [[nodiscard]]
-bool Comando::hnova() {
+bool Comando::verificaDimensoes_habitacao() {
     vector <string> inputAux = getVectorInput();
 
     if (!isBetween(stoi(inputAux[1]), 2, 4)) {return false;}
@@ -112,12 +111,20 @@ bool Comando::hnova() {
 }
 
 [[nodiscard]]
-bool Comando::znova(Habitacao* h) {
+bool Comando::verificaDimensoes_zona(Habitacao* h) {
     vector <string> inputAux = getVectorInput();
 
     if (!isBetween(stoi(inputAux[1]), 0, h->getLin()-1)) {return false;}
     if (!isBetween(stoi(inputAux[2]), 0, h->getCol()-1)) {return false;}
 
+    return true;
+}
+
+
+[[nodiscard]]
+bool Comando::zrem() {
+    vector <string> inputAux = getVectorInput();
+    stoi(inputAux[1]);
     return true;
 }
 

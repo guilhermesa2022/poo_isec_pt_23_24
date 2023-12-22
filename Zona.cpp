@@ -18,21 +18,38 @@ int Zona::baseId = 1;
 Zona::Zona(string  nomeDaZona): tilulo(std::move(nomeDaZona)), id(baseId++){iniciarPropriedadesDefault();}
 
 // info
+string Zona::getAsStringSimple() const {
+    ostringstream os;
+    os << "S: " << numeroDeSensores();
+    os << " || P : " << numeroDeProcessadores();
+    os << " || A : " << numeroDeAparelhos() <<  endl;
+    return os.str();
+}
+
 string Zona::getAsString() const {
     ostringstream os;
-    os << "componente do tipo : sensores" << endl;
-    for (auto s: sensores) {
-        os << "s" << s->getid() << " // nome sensor // " << "estado: " << s->getvalor() << endl;
-    }
-    os << "componente do tipo : processadores" << endl;
-    for (auto p: processadores) {
-        os << "s" << p->getid() << " // nome sensor // " << "estado: " << endl;//<< p->();
-    }
-    os << "componente do tipo : aparelhos" << endl;
+    os << "Zona: " << id << endl;
+    os << "A : " << numeroDeAparelhos() <<  endl;
     for (auto a: aparelhos) {
-        //os << "s" << s->getid() << " // nome sensor // " << "estado: " << s->getvalor();
+        //os << "\ta" << a-> << " // nome sensor // " << "estado: " << s->getvalor();
     }
+    os << "S : " << numeroDeSensores() <<  endl;
+    for (auto s: sensores) {
+        os << "\t" << s->getAsString();
+    }
+    os << "P : " << numeroDeProcessadores() <<  endl;
+    for (auto p: processadores) {
+        os << "\t" << p->getAsSting();//<< p->();
+    }
+    return os.str();
+}
 
+string Zona::propsAsString() const {
+    ostringstream os;
+    os << "Zona: " << id << endl;
+    for(auto props : propriedades){
+        os << "propriedade: " << props.second->getid() << " : " << props.first << " valor: " << props.second->getValor() << endl;
+    }
     return os.str();
 }
 
@@ -49,7 +66,7 @@ bool Zona::addPropriedade(const string& nomeDaPropriedades, optional<double> min
     if (propriedades.find(nomeDaPropriedades) != propriedades.end()) {
         return false;
     }
-    propriedades[nomeDaPropriedades] = new Propriedade(min);
+    propriedades[nomeDaPropriedades] = make_shared<Propriedade>(min);
     return true;
 }
 
@@ -57,7 +74,7 @@ bool Zona::addPropriedade(const string& nomeDaPropriedades, optional<double> min
     if (propriedades.find(nomeDaPropriedades) != propriedades.end()) {
         return false;
     }
-    propriedades[nomeDaPropriedades] = new Propriedade(min, max);
+    propriedades[nomeDaPropriedades] = make_shared<Propriedade>(min, max);
     return true;
 }
 
@@ -65,7 +82,7 @@ bool Zona::addPropriedade(const string& nomeDaPropriedades) {
     if (propriedades.find(nomeDaPropriedades) != propriedades.end()) {
         return false;
     }
-    propriedades[nomeDaPropriedades] = new Propriedade();
+    propriedades[nomeDaPropriedades] = make_shared<Propriedade>();
     return true;
 }
 
@@ -82,16 +99,16 @@ bool Zona::addSensor(const string &propsNome) {
     if (propriedades.find(propsNome) == propriedades.end()) {
         return false;
     }
-    sensores.push_back(make_shared<Sensor>(propriedades[propsNome]));
+    sensores.push_back(make_shared<Sensor>(weak_ptr<Propriedade>(propriedades[propsNome])));
     return true;
 }
 
-bool Zona::addProcessador() {
-    processadores.push_back(make_shared<Processador>());
+bool Zona::addProcessador(const string& comando) {
+    processadores.push_back(make_shared<Processador>(id, comando));
     return true;
 }
 
-bool Zona::addRegrasPorc(const int idProc,int idsensor, const std::string &funcao, optional<double> x, optional<double> y) {
+bool Zona::addRegrasPorc(const int idProc,int idsensor, const string &funcao, const vector<double>& valores) {
     auto it = processadores.begin();
     while (it != processadores.end()) {
         if ((*it)->getid() == idProc) {
@@ -107,7 +124,7 @@ bool Zona::addRegrasPorc(const int idProc,int idsensor, const std::string &funca
         ++it2;
     }
     if(it != processadores.end() && it2 != sensores.end()) {
-        (*it)->addRegra(funcao, (*it2), x, y);
+        (*it)->addRegra(funcao, weak_ptr<Sensor>(*it2), valores);
         return true;
     } else {
         return false;
@@ -145,9 +162,6 @@ int Zona::numeroDeProcessadores() const {
 }
 
 Zona::~Zona() {
-    for (auto pro: propriedades) {
-        delete pro.second;
-    }
     sensores.clear();
     processadores.clear();
     aparelhos.clear();
@@ -158,11 +172,11 @@ void Zona::iniciarPropriedadesDefault(){
     int min[] = {-273, 0};
     int max[] = {100};
 
-    propriedades["Temperatura"] = new Propriedade(min[0]);
-    propriedades["Luz"] = new Propriedade(min[1]);
-    propriedades["Radiacao"] = new Propriedade(min[1]);
-    propriedades["Vibracao"] = new Propriedade(min[1]);
-    propriedades["Humidade"] = new Propriedade(min[1], max[0]);
-    propriedades["Fumo"] = new Propriedade(min[1], max[0]);
-    propriedades["Som"] = new Propriedade(min[1]);
+    propriedades["Temperatura"] = make_shared<Propriedade>(min[0]);
+    propriedades["Luz"] = make_shared<Propriedade>(min[1]);
+    propriedades["Radiacao"] = make_shared<Propriedade>(min[1]);
+    propriedades["Vibracao"] = make_shared<Propriedade>(min[1]);
+    propriedades["Humidade"] = make_shared<Propriedade>(min[1], max[0]);
+    propriedades["Fumo"] = make_shared<Propriedade>(min[1], max[0]);
+    propriedades["Som"] = make_shared<Propriedade>(min[1]);
 }

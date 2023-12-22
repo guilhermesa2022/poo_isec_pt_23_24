@@ -89,10 +89,12 @@ void UI::atualizar_zonas_UI(const int &linha, const int &coluna) {
 
                 (zonasW[i][j])->clear();
                 *(zonasW[i][j]) << set_color(3) << move_to(0, 0) << habitacao->get_ptrZona(i, j)->getId();
-                *(zonasW[i][j]) << set_color(3) << move_to(0, 1) << "num de Sensores: "<< habitacao->get_ptrZona(i, j)->numeroDeSensores();
-                *(zonasW[i][j]) << set_color(3) << move_to(0, 2) << "num de Aparelhos: "<<habitacao->get_ptrZona(i, j)->numeroDeAparelhos();
-                *(zonasW[i][j]) << set_color(3) << move_to(0, 3) << "num de Processadores: "<<habitacao->get_ptrZona(i, j)->numeroDeProcessadores();
-            }
+                *(zonasW[i][j]) << set_color(3) << move_to(0, 1) << ""<< habitacao->get_ptrZona(i, j)->getAsStringSimple();
+
+            }else if(zonasW[i][j] != nullptr){
+                    delete zonasW[i][j];
+                    zonasW[i][j] = nullptr;
+                }
         }
     }
 }
@@ -104,7 +106,7 @@ void UI::START() {
     int res = 0;
     int i = 0;
 
-    *dadosW << set_color(5) << move_to(0, numdados++) << "\t\t\t\tBem Vindo\nAs dimensoes de uma habitacao tem obrigatoriamente de estar entre 2x2 e 4x4\n\tUma zona nao pode estar fora da habitacao";
+    *dadosW << set_color(5) << move_to(0 , numdados++) << "\t\t\t\tBem Vindo\nAs dimensoes de uma habitacao tem obrigatoriamente de estar entre 2x2 e 4x4\n\tUma zona nao pode estar fora da habitacao";
 
     while (res != 1) {
         cleandados();
@@ -149,7 +151,7 @@ int UI::commandLine(string cmd) {
                 switch (c.getIndex()) {
                     case 2:
                         if (habitacao == nullptr) { // <- Habitação ainda não existe
-                            if (c.hnova()) {
+                            if (c.verificaDimensoes_habitacao()) {
                                 linhas = stoi(inputAux[1]);
                                 colunas = stoi(inputAux[2]);
                                 habitacao = new Habitacao(linhas, colunas);
@@ -163,18 +165,20 @@ int UI::commandLine(string cmd) {
                         }
                         break;
                     case 3:
-                        delete habitacao;
-                        habitacao = nullptr;
-                        linhas = 0;
-                        colunas = 0;
-                        deleteZonasWindow();
-                        dadosW =ini_dadosW_UI();
-                        *dadosW << set_color(5) << move_to(0, numdados++) << "\t\t\t\tBem Vindo\nAs dimensoes de uma habitacao tem obrigatoriamente de estar entre 2x2 e 4x4\n\tUma zona nao pode estar fora da habitacao";
+                        if (habitacao != nullptr) {
+                            delete habitacao;
+                            habitacao = nullptr;
+                            linhas = 0;
+                            colunas = 0;
+                            deleteZonasWindow();
+                            dadosW = ini_dadosW_UI();
+                            *dadosW << set_color(5) << move_to(0, numdados++) << "\t\t\t\tBem Vindo\nAs dimensoes de uma habitacao tem obrigatoriamente de estar entre 2x2 e 4x4\n\tUma zona nao pode estar fora da habitacao";
+                        }
                         break;
                     case 4:
                         if (habitacao != nullptr) { // <- Habitação já existe
                             int linhasTemp, colunasTemp;
-                            if (c.znova(habitacao)) {
+                            if (c.verificaDimensoes_zona(habitacao)) {
                                 linhasTemp = stoi(inputAux[1]);
                                 colunasTemp = stoi(inputAux[2]);
                                 try{
@@ -184,27 +188,101 @@ int UI::commandLine(string cmd) {
                                     *dadosW << set_color(5) << move_to(0, numdados++) << exce;
                                 }
                             } else {
-                                *dadosW << set_color(5) << move_to(0, numdados++) << "Dimensoes invalidas";
+                                *dadosW << set_color(5) << move_to(0, numdados++) << "Dimensoes invalidas " << habitacao->getLin() << " " << habitacao->getCol();
+                            }
+                        } else { // <- Habitação ainda não existe
+                            *dadosW << set_color(3) << move_to(0, numdados++) << "Habitacao ainda nao existe";
+                        }
+                        break;
+                    case 5:
+                        if (habitacao != nullptr) { // <- Habitação já existe
+                            //teste a mudar
+                            int idzona;
+
+                            if (c.zrem()) {
+                                idzona = stoi(inputAux[1]);
+                                try{
+                                    habitacao->removerZona(idzona);
+                                    atualizar_zonas_UI(linhas, colunas);
+                                }catch(const char* exce){
+                                    *dadosW << set_color(5) << move_to(0, numdados++) << exce;
+                                }
+                            }
+                        } else { // <- Habitação ainda não existe
+                            *dadosW << set_color(3) << move_to(0, numdados++) << "Habitacao ainda nao existe";
+                        }
+                        break;
+                    case 6:
+                        if(habitacao != nullptr) {
+                            *dadosW << set_color(5) << move_to(0, numdados) << habitacao->zlista();
+                            numdados += habitacao->getNumZonas()*2;
+                        }
+                        break;
+                    case 7:
+                        if(habitacao != nullptr) {
+                            *dadosW << set_color(5) << move_to(0, numdados) << habitacao->zcomp(stoi(inputAux[1]));
+                            numdados += habitacao->getNumZonas()*2;
+                        }
+                        break;
+                    case 8:
+                        if (habitacao != nullptr) { // <- Habitação já existe
+                            int idzona;
+
+                            if (c.zrem()) {
+                                idzona = stoi(inputAux[1]);
+                                    string texto = habitacao->zprops(idzona);
+                                    *dadosW << set_color(5) << move_to(0, numdados) << texto;
+                                    numdados += contlinhas(texto);
+                            }
+                        } else { // <- Habitação ainda não existe
+                            *dadosW << set_color(3) << move_to(0, numdados++) << "Habitacao ainda nao existe";
+                        }
+                        break;
+                    case 9:
+                        if (habitacao != nullptr) { // <- Habitação já existe
+                            int idzona = stoi(inputAux[1]);
+                            string nomeProp = inputAux[2];
+                            int valor = stoi(inputAux[3]);
+                            if(habitacao->pmod(idzona, nomeProp, valor)){
+                                *dadosW << set_color(5) << move_to(0, numdados++) << "Propriedade alterada";
+                            }else{
+                                *dadosW << set_color(5) << move_to(0, numdados++) << "Nao foi possivil alterar a propridade";
                             }
                         } else { // <- Habitação ainda não existe
                             *dadosW << set_color(3) << move_to(0, numdados++) << "Habitacao ainda nao existe";
                         }
                         break;
                     case 10:
-                        if (inputAux[2] == "s" && c.procuraEmVector(sensores, inputAux[3]) == -1) {
-                            *dadosW << set_color(3) << move_to(0, numdados++) << "Sensor desconhecido";
+
+                        if(habitacao != nullptr){
+                            // falta verificacao  de erros !
+                            // e so um teste para ver se  funcionar
+
+                            if(inputAux[2] == "s"){
+                                if(habitacao->cnovo_sensor(stoi(inputAux[1]), inputAux[3])) {
+                                    *dadosW << set_color(5) << move_to(0, numdados++) << "Sensor adicionado";
+                                }else{
+                                    *dadosW << set_color(5) << move_to(0, numdados++) << "erro a adicionar sensor";
+                                }
+                            }else if(inputAux[2] == "a"){
+                                if(habitacao->cnovo_aparelho(stoi(inputAux[1]), inputAux[3])) {
+                                    *dadosW << set_color(5) << move_to(0, numdados++) << "Sensor adicionado";
+                                }else{
+                                    *dadosW << set_color(5) << move_to(0, numdados++) << "erro a adicionar aparelho";
+                                }
+                            } else if(inputAux[2] == "p"){
+                                if(habitacao->cnovo_processador(stoi(inputAux[1]), inputAux[3])) {
+                                    *dadosW << set_color(5) << move_to(0, numdados++) << "Sensor adicionado";
+                                }else{
+                                    *dadosW << set_color(5) << move_to(0, numdados++) << "erro a adicionar processador";
+                                }
+                            }else{
+                                *dadosW << set_color(3) << move_to(0, numdados++) << "erro de sintaxe";
+                            }
+                            atualizar_zonas_UI(linhas, colunas);
                         }
-                        if (inputAux[2] == "a" && c.procuraEmVector(aparelhos, inputAux[3]) == -1) {
-                            *dadosW << set_color(3) << move_to(0, numdados++) << "Aparelho desconhecido";
-                        }
+
                         break;
-                    case 11:
-                        if (inputAux[2] == "s" && c.procuraEmVector(sensores, inputAux[3]) == -1) {
-                            *dadosW << set_color(3) << move_to(0, numdados++) << "Sensor desconhecido";
-                        }
-                        if (inputAux[2] == "a" && c.procuraEmVector(aparelhos, inputAux[3]) == -1) {
-                            *dadosW << set_color(3) << move_to(0, numdados++) << "Aparelho desconhecido";
-                        }
                     default:
                         break;
                 }
@@ -278,6 +356,15 @@ void UI::cleandados() {
         numdados = 0;
         dadosW->clear();
     }
+}
+
+int UI::contlinhas(const string &texto)const{
+    int n=0;
+    for(int i=0; i<texto.size(); i++){
+        if(texto[i] == '\n')
+            n++;
+    }
+    return n;
 }
 
 

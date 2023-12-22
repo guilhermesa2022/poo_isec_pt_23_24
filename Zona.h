@@ -16,7 +16,7 @@ class Zona {
     static int baseId;
     const int id;
     string tilulo;
-    map<string, Propriedade*> propriedades;
+    map<string, shared_ptr<Propriedade>> propriedades;
     vector<shared_ptr<Sensor>> sensores;
     vector<shared_ptr<Processador>> processadores;
     vector<shared_ptr<Aparelho>> aparelhos;
@@ -25,7 +25,11 @@ public:
     ////////////////////////////construtores da class zona
     explicit Zona(string nomeDaZona = "zona sem nome");
     [[nodiscard]]
-    string getAsString()const;
+    string getAsStringSimple()const;
+    [[nodiscard]]
+    string getAsString() const;
+    [[nodiscard]]
+    string propsAsString() const;
     [[nodiscard]]
     int getId() const;
     [[nodiscard]]
@@ -41,15 +45,13 @@ public:
     ///////////////////// criar sensores
     // a funcao tem um porblema
     bool addSensor(const string& propsNome);
-
-    bool addProcessador();
-
-    bool addRegrasPorc(const int idProc,int idsensor, const std::string &funcao, optional<double> x, optional<double> y = {});
+    bool addProcessador(const string& comando);
+    bool addRegrasPorc(const int idProc,int idsensor, const std::string &funcao, const vector<double>& valores);
     [[nodiscard]]
     string listaPropriedades()const;
 
     void eleminarSensor(int id);
-    void eleminarRegraPorc(const int idProc);
+    void eleminarRegraPorc(const int &idProc);
     void eleminarProcessador(int id);
 
     // ESTE MÉTODOS SÃO PARA O MÉTODO DE DA CLASSE HABITAÇÃO
