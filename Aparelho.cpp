@@ -1,23 +1,46 @@
 #include "Aparelho.h"
 
+#include <sstream>
+
 /***************************************** Public *****************************************/
 int Aparelho::baseID = 1;
+
+Aparelho::Aparelho(Aparelho & outro) {
+    id = baseID++;
+    ligado = outro.ligado;
+    props.clear();
+    for (const auto & pair : outro.props) {
+        props.emplace(pair);
+    }
+}
 
 void Aparelho::liga() {ligado = true;}
 
 void Aparelho::desliga() {ligado = false;}
 
-void Aparelho::addProp(string nome, Propriedade* ptr) {
-    props.insert(make_pair(nome, ptr));
+string Aparelho::getAsString() const {
+    ostringstream oss;
+    oss << "\nID: " << id
+        << "\nEstado: " << ligado
+        << listProps();
+    return oss.str();
 }
 
-void Aparelho::aumentaProp(string nome, int val) {
-    string err = "Propriedade nao encontrada.";
-    auto it = props.find(nome);
+string Aparelho::listProps() const {
+    ostringstream oss;
+    oss << "\nPropriedades que afeta:";
+    for (const auto & pair : props) {
+       oss << '\n' << pair.first;
+    }
+    return oss.str();
+}
 
-    if (it == props.end()) {throw err;}
+void Aparelho::addProp(string nome, shared_ptr<Propriedade> ptr) {
+    props.emplace(nome, ptr);
+}
 
-    it->second->aumentaValor(val);
+void Aparelho::aumentaProp(string nome, double val) {
+    props[nome]->aumentaValor(val);
 }
 
 int Aparelho::getid() const {return id;}
@@ -40,6 +63,9 @@ int Aparelho::getPropValue(string nome) const {
     return it->second->getValor();
 }
 
-Aparelho::~Aparelho() = default;
+Aparelho::~Aparelho() {
+    props.clear();
+}
 
 /***************************************** Private *****************************************/
+

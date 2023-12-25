@@ -13,22 +13,23 @@ class Aparelho {
     static int baseID;
     int id;
     bool ligado;
-    map<string, Propriedade*> props;
+    map<string, shared_ptr<Propriedade>> props;
 
 public:
     Aparelho() : id(baseID++), ligado(false) {props.clear();}
+    Aparelho(Aparelho & outro);
     virtual void liga();
     virtual void desliga();
+    virtual string getAsString()const;
+    string listProps()const;
     int getid()const;
-    void addProp(string nome, Propriedade* ptr);
-    void aumentaProp(string nome, int val);
+    void addProp(string nome, shared_ptr<Propriedade> ptr);
+    void aumentaProp(string nome, double val);
     void diminuiProp(string nome, int val);
     int getPropValue(string nome)const;
-    virtual void mudaEstado(const string& nome) = 0;
-    virtual ~Aparelho() = 0;
+    virtual void mudaEstado(const string & nome) = 0;
+    virtual ~Aparelho();
 private:
-    bool findProp(string nome);
-
 };
 
 

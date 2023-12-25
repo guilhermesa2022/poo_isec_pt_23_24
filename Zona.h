@@ -59,6 +59,8 @@ public:
     void eleminarProcessador(const int &id);
     void eleminarAparelho(const int &id);
 
+    bool asoc(const int &idproce, const int &idaparelho);
+
     // ESTE MÉTODOS SÃO PARA O MÉTODO DE DA CLASSE HABITAÇÃO
     [[nodiscard]]
     int numeroDeSensores()const;

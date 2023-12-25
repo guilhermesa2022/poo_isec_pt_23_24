@@ -1,11 +1,14 @@
 #include "Zona.h"
 
+#include "Aquecedor.h"
+
 #include <iostream>
 #include <optional>
 #include <sstream>
 #include <algorithm>
 #include <cctype>
-#include "Aquecedor.h"
+#include <memory>
+
 using namespace std;
 
 // inicialiar as var static;;
@@ -69,22 +72,36 @@ int Zona::getId() const {
 bool Zona::addAparelho(const string &tipo) {
     string tipotoupper = tipo;
     transform(tipotoupper.begin(), tipotoupper.end(), tipotoupper.begin(), [](unsigned char c){ return std::toupper(c); });
-    if(tipotoupper == "AQUECEDOR"){
-
-        ///// temporatio // temporatio // temporatio // temporatio // temporatio // temporatio // temporatio
-        Propriedade *tem = nullptr, *rui = nullptr;
-        for(auto p : propriedades){
-            if(p.first == "Temperatura"){
-                tem = p.second.get();
-            }
-            if(p.first == "Ruido"){
-                rui = p.second.get();
-            }
-        }
-        ///// temporatio // temporatio // temporatio // temporatio // temporatio // temporatio // temporatio // temporatio
+    if(tipotoupper == "AQUECEDOR") {
+        auto tem = propriedades["Temperatura"];
+        auto rui = propriedades["Vibracao"];
         aparelhos.push_back(make_shared<Aquecedor>(tem, rui));
     }
     return true;
+}
+
+bool Zona::asoc(const int &idproce, const int &idaparelho) {
+    auto it = processadores.begin();
+    while (it != processadores.end()) {
+        if ((*it)->getid() == idproce) {
+            break;
+        }
+        ++it;
+    }
+    auto it2 = aparelhos.begin();
+    while (it2 != aparelhos.end()){
+        if ((*it2)->getid() == idaparelho) {
+            break;
+        }
+        ++it2;
+    }
+    if(it != processadores.end() && it2 != aparelhos.end()) {
+        (*it)->addAparelho(weak_ptr<Aparelho>(*it2));
+        (*it)->alteraEstada();
+        return true;
+    } else {
+        return false;
+    }
 }
 
 int Zona::getNumeroPropriedades() const {

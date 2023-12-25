@@ -5,22 +5,24 @@
 #include "Regra_menor.h"
 #include "Regra_maior.h"
 #include "Regra_fora.h"
+
 #include <iostream>
 #include <sstream>
 #include <memory>
+#include <algorithm>
 
 using namespace std;
 
 int Processador::baseId = 0;
 
-Processador::Processador(const int &_idzona, const string &_comando) : id(baseId++), idzona(_idzona), comando(_comando){}
+Processador::Processador(const int &_idzona, const string &_comando) : id(baseId++), idzona(_idzona), comando(_comando) {}
 
-Processador::~Processador(){
+Processador::~Processador() {
     regras.clear();
 }
 
 bool Processador::addRegra(const string & funcao, weak_ptr<Sensor> sensor, const vector<double> &valores) {
-    if(funcao == "igual"){
+    if (funcao == "igual") {
         regras.push_back(make_unique<Regra_Igual>(sensor, valores[0]));
         return true;
     }else if(funcao == "maior"){
@@ -39,7 +41,6 @@ bool Processador::addRegra(const string & funcao, weak_ptr<Sensor> sensor, const
     return false;
 }
 
-[[nodiscard]]
 string Processador::getAsSting() const {
     ostringstream os;
     os << "p" << id << " num regras: " << regras.size() << endl;
@@ -49,7 +50,6 @@ string Processador::getAsSting() const {
     return os.str();
 }
 
-[[nodiscard]]
 bool Processador::testar() const {
     bool test = true;
     for(auto &R : regras){
@@ -59,7 +59,6 @@ bool Processador::testar() const {
     return test;
 }
 
-[[nodiscard]]
 int Processador::getid() const {
     return id;
 }
@@ -70,6 +69,7 @@ void Processador::alteraEstada() {
         if(!R->getEstado())
             estado = false;
     }
+
     if(estado){
         shared_ptr<Aparelho> aparelho = aparelhos.lock();
         if(aparelho != nullptr){
@@ -80,4 +80,8 @@ void Processador::alteraEstada() {
 
 void Processador::eleminarRegra(int idRegra) {
     regras.erase(remove_if(regras.begin(), regras.end(),[&idRegra](unique_ptr<RegraBase> &ptrRegra){return ptrRegra->getId() == idRegra;}), regras.end());
+}
+
+void Processador::addAparelho(weak_ptr<Aparelho> _aparelhos) {
+    aparelhos = _aparelhos;
 }

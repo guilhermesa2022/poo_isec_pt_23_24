@@ -1,0 +1,7 @@
+hnova 2 2
+znova 0 0
+cnovo 1 s Temperatura
+cnovo 1 p ligar
+cnovo 1 a Aquecedor
+rnova 1 0 menor 0 50
+asoc 1 0 1
