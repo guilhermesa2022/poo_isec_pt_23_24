@@ -5,7 +5,6 @@
 #include "Terminal.h"
 #include "Habitacao.h"
 #include "Sensor.h"
-#include "Regra.h"
 #include "Propriedade.h"
 #include "Processador.h"
 #include "UI.h"
