@@ -245,12 +245,14 @@ int UI::commandLine(string cmd) {
                             int valor = stoi(inputAux[3]);
                             if(habitacao->pmod(idzona, nomeProp, valor)){
                                 *dadosW << set_color(5) << move_to(0, numdados++) << "Propriedade alterada";
+                                atualizar_zonas_UI(linhas, colunas);
                             }else{
                                 *dadosW << set_color(5) << move_to(0, numdados++) << "Nao foi possivil alterar a propridade";
                             }
                         } else { // <- Habitação ainda não existe
                             *dadosW << set_color(3) << move_to(0, numdados++) << "Habitacao ainda nao existe";
                         }
+
                         break;
                     case 10:
 
@@ -280,6 +282,32 @@ int UI::commandLine(string cmd) {
                                 *dadosW << set_color(3) << move_to(0, numdados++) << "erro de sintaxe";
                             }
                             atualizar_zonas_UI(linhas, colunas);
+                        }
+
+                        break;
+                    case 11:
+                        if(habitacao != nullptr){
+                            // falta verificacao  de erros !
+                            // e so um teste para ver se  funcionar
+                            habitacao->crem(stoi(inputAux[1]), inputAux[2], stoi(inputAux[3]));
+                            atualizar_zonas_UI(linhas, colunas);
+                        }
+
+                        break;
+                    case 12:
+                        if(habitacao != nullptr){
+                            // falta verificacao  de erros !
+                            // e so um teste para ver se  funcionar
+                            vector<double> valores;
+                            for (int i = 5; i < inputAux.size(); ++i) {
+                                valores.emplace_back(stoi(inputAux[i]));
+                            }
+                            if(habitacao->rnova(stoi(inputAux[1]), stoi(inputAux[2]), inputAux[3], stoi(inputAux[4]), valores)){
+                                atualizar_zonas_UI(linhas, colunas);
+                            }else{
+                                *dadosW << set_color(5) << move_to(0, numdados++) << "erro a adicionar regra";
+                            }
+
                         }
 
                         break;

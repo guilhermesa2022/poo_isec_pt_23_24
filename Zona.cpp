@@ -4,7 +4,8 @@
 #include <optional>
 #include <sstream>
 #include <algorithm>
-
+#include <cctype>
+#include "Aquecedor.h"
 using namespace std;
 
 // inicialiar as var static;;
@@ -23,6 +24,14 @@ string Zona::getAsStringSimple() const {
     os << "S: " << numeroDeSensores();
     os << " || P : " << numeroDeProcessadores();
     os << " || A : " << numeroDeAparelhos() <<  endl;
+    int cont = 0;
+    for(auto props : propriedades){
+        os << props.first.at(0) << ": "  << props.second->getValor() << " ";
+        cont++;
+        if(cont % 3 == 0){
+            os << endl;
+        }
+    }
     return os.str();
 }
 
@@ -55,6 +64,27 @@ string Zona::propsAsString() const {
 
 int Zona::getId() const {
     return id;
+}
+
+bool Zona::addAparelho(const string &tipo) {
+    string tipotoupper = tipo;
+    transform(tipotoupper.begin(), tipotoupper.end(), tipotoupper.begin(), [](unsigned char c){ return std::toupper(c); });
+    if(tipotoupper == "AQUECEDOR"){
+
+        ///// temporatio // temporatio // temporatio // temporatio // temporatio // temporatio // temporatio
+        Propriedade *tem = nullptr, *rui = nullptr;
+        for(auto p : propriedades){
+            if(p.first == "Temperatura"){
+                tem = p.second.get();
+            }
+            if(p.first == "Ruido"){
+                rui = p.second.get();
+            }
+        }
+        ///// temporatio // temporatio // temporatio // temporatio // temporatio // temporatio // temporatio // temporatio
+        aparelhos.push_back(make_shared<Aquecedor>(tem, rui));
+    }
+    return true;
 }
 
 int Zona::getNumeroPropriedades() const {
@@ -90,7 +120,11 @@ bool Zona::setPropriedades(const string& nomeDaPropriedades, int valor) {
     if (propriedades.find(nomeDaPropriedades) == propriedades.end()) {
         return false;
     }
-    propriedades[nomeDaPropriedades]->definirValor(valor);
+    if(valor < 0){
+        propriedades[nomeDaPropriedades]->diminuiValor((-valor));
+    }else{
+        propriedades[nomeDaPropriedades]->aumentaValor(valor);
+    }
     return true;
 }
 
@@ -124,8 +158,7 @@ bool Zona::addRegrasPorc(const int idProc,int idsensor, const string &funcao, co
         ++it2;
     }
     if(it != processadores.end() && it2 != sensores.end()) {
-        (*it)->addRegra(funcao, weak_ptr<Sensor>(*it2), valores);
-        return true;
+        return (*it)->addRegra(funcao, weak_ptr<Sensor>(*it2), valores);
     } else {
         return false;
     }
@@ -139,14 +172,19 @@ string Zona::listaPropriedades() const {
     return os.str();
 }
 
-void Zona::eleminarSensor(int _id) {
+void Zona::eleminarSensor(const int &_id) {
         sensores.erase(std::remove_if(sensores.begin(), sensores.end(), [&_id](const std::shared_ptr<Sensor>& s) {
             cout << s->getid() << " ";return s->getid() == _id;}), sensores.end());
 }
 
-void Zona::eleminarProcessador(int _id) {
+void Zona::eleminarProcessador(const int &_id) {
     processadores.erase(remove_if(processadores.begin(), processadores.end(), [&_id](const shared_ptr<Processador> & p){
         return  p->getid() == _id;}), processadores.end());
+}
+
+void Zona::eleminarAparelho(const int &_id) {
+    aparelhos.erase(remove_if(aparelhos.begin(), aparelhos.end(), [&_id](const shared_ptr<Aparelho> & a){
+        return  a->getid() == _id;}), aparelhos.end());
 }
 
 int Zona::numeroDeSensores() const {

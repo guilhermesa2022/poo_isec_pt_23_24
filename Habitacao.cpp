@@ -165,7 +165,7 @@ bool Habitacao::cnovo_aparelho(const int &IDzona, const string &tipo) {
         for ( int j = 0; j < colunas; ++j) {
             if(zonas[i][j] != nullptr) {
                 if (zonas[i][j]->getId() == IDzona){
-                    throw "nao implementado";
+                    return zonas[i][j]->addAparelho(tipo);
                 }
             }
         }
@@ -178,6 +178,43 @@ bool Habitacao::cnovo_processador(const int &IDzona, const string &tipo) {
             if(zonas[i][j] != nullptr) {
                 if (zonas[i][j]->getId() == IDzona){
                     return zonas[i][j]->addProcessador(tipo);
+                }
+            }
+        }
+    }
+    return false;
+}
+
+bool Habitacao::crem(const int &IDzona, const string& tipo, const int &id) {
+    for (int i = 0; i < linhas; ++i) {
+        for ( int j = 0; j < colunas; ++j) {
+            if(zonas[i][j] != nullptr) {
+                if (zonas[i][j]->getId() == IDzona){
+                    if(tipo == "a"){
+                        zonas[i][j]->eleminarAparelho(id);
+                        return true;
+                    }else if(tipo == "p"){
+                        zonas[i][j]->eleminarProcessador(id);
+                        return true;
+                    }else if(tipo == "s"){
+                        zonas[i][j]->eleminarSensor(id);
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
+
+bool Habitacao::rnova(const int &IDzona, const int &idproce, const string &funcao, const int& idsensor ,const vector<double> &valores){
+    for (int i = 0; i < linhas; ++i) {
+        for ( int j = 0; j < colunas; ++j) {
+            if(zonas[i][j] != nullptr) {
+                if (zonas[i][j]->getId() == IDzona){
+                    return zonas[i][j]->addRegrasPorc(idproce, idsensor , funcao, valores);
                 }
             }
         }

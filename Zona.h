@@ -44,15 +44,20 @@ public:
 
     ///////////////////// criar sensores
     // a funcao tem um porblema
+    [[nodiscard]]
     bool addSensor(const string& propsNome);
+    [[nodiscard]]
     bool addProcessador(const string& comando);
+    [[nodiscard]]
+    bool addAparelho(const string& tipo);
     bool addRegrasPorc(const int idProc,int idsensor, const std::string &funcao, const vector<double>& valores);
     [[nodiscard]]
     string listaPropriedades()const;
 
-    void eleminarSensor(int id);
+    void eleminarSensor(const int &id);
     void eleminarRegraPorc(const int &idProc);
-    void eleminarProcessador(int id);
+    void eleminarProcessador(const int &id);
+    void eleminarAparelho(const int &id);
 
     // ESTE MÉTODOS SÃO PARA O MÉTODO DE DA CLASSE HABITAÇÃO
     [[nodiscard]]
