@@ -76,6 +76,8 @@ public:
     bool rrem(const int &idproce, const int &idregra);
     [[nodiscard]]
     bool ades(const int &IDproc, const int &IDaparelho);
+    [[nodiscard]]
+    bool acom(const int &IDaparelho, const string &comdando);
 
 
 

@@ -42,7 +42,7 @@ public:
     string rlista(const int &IDzona, const int &idproce) const;
     bool rrem(const int &IDzona, const int &idproce, const int &idregra);
     bool ades(const int &IDzonam, const int &IDproc, const int &regra);
-    bool acom(const int &IDzona, const int &IDproc, const string &comdando);
+    bool acom(const int &IDzona, const int &IDaparelho, const string &comdando);
                         //////////////////////////////////////////////////////////////////
                         /////////// Comandos para gerir habitação e zonas/////////////////
                         //////////////////////////////////////////////////////////////////

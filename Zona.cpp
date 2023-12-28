@@ -124,6 +124,16 @@ bool Zona::asoc(const int &idproce, const int &idaparelho) {
     }
 }
 
+bool Zona::acom(const int &IDaparelho, const string &comdando) {
+    auto it = std::find_if(aparelhos.begin(), aparelhos.end(),[&IDaparelho](const auto& aparelho) {return aparelho->getid() == IDaparelho;});
+    if (it != aparelhos.end()) {
+        (*it)->mudaEstado(comdando);
+        return true;
+    } else{
+        return false;
+    }
+}
+
 int Zona::getNumeroPropriedades() const {
     return (int)propriedades.size();
 }

@@ -220,8 +220,9 @@ int UI::commandLine(string cmd) {
                         break;
                     case 7:
                         if(habitacao != nullptr) {
-                            *dadosW << set_color(5) << move_to(0, numdados) << habitacao->zcomp(stoi(inputAux[1]));
-                            numdados += habitacao->getNumZonas()*2;
+                            string texto = habitacao->zcomp(stoi(inputAux[1]));
+                            *dadosW << set_color(5) << move_to(0, numdados) << texto;
+                            numdados += contlinhas(texto);
                         }
                         break;
                     case 8:
@@ -370,7 +371,7 @@ int UI::commandLine(string cmd) {
                             if(habitacao->acom(stoi(inputAux[1]), stoi(inputAux[2]), inputAux[3])){
                                 atualizar_zonas_UI(linhas, colunas);
                             }else{
-                                *dadosW << set_color(5) << move_to(0, numdados++) << "erro a acuc«sicao dos rewfeqfw";
+                                *dadosW << set_color(5) << move_to(0, numdados++) << "erro a enviar o comando";
                             }
 
                         }

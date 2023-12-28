@@ -286,6 +286,21 @@ bool Habitacao::ades(const int &IDzonam, const int &IDproc, const int &regra) {
     }
     return false;
 }
+
+bool Habitacao::acom(const int &IDzona, const int &IDaparelho, const string &comdando) {
+for (int i = 0; i < linhas; ++i) {
+        for ( int j = 0; j < colunas; ++j){
+            if(zonas[i][j] != nullptr){
+                if (zonas[i][j]->getId() == IDzona){
+                    return zonas[i][j]->acom(IDaparelho, comdando);
+                }
+            }
+        }
+    }
+    return false;
+}
+
+
                             //////////////////////////////////////////////////////////////////
                             /////////// Comandos para gerir habitação e zonas/////////////////
                             //////////////////////////////////////////////////////////////////
