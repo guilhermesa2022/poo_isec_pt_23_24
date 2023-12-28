@@ -12,7 +12,7 @@ using namespace std;
 
 class Refrigerador : public Aparelho {
 public:
-    Refrigerador(shared_ptr<Propriedade> temperatura, shared_ptr<Propriedade> ruido);
+    Refrigerador(weak_ptr<Propriedade> temperatura, weak_ptr<Propriedade> ruido);
     void liga()override;
     void desliga()override;
     void mudaEstado(const string & nome)override;

@@ -1,7 +1,7 @@
 #include "Lampada.h"
 
 /***************************************** Public *****************************************/
-Lampada::Lampada(shared_ptr<Propriedade> iluminacao) : Aparelho() {
+Lampada::Lampada(weak_ptr<Propriedade> iluminacao) : Aparelho() {
     addProp("Iluminacao", iluminacao);
 }
 

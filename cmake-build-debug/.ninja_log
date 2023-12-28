@@ -67,3 +67,15 @@
 24	1296	7254924457624408	CMakeFiles/oop_trabalho.dir/Comando.cpp.obj	2b052753326d53dc
 4	1984	7254924464488143	CMakeFiles/oop_trabalho.dir/Zona.cpp.obj	5d4c6b36bf30b63f
 1985	2647	7254924471076143	oop_trabalho.exe	afdbe546e80e03bc
+108	1396	7254991398548398	CMakeFiles/oop_trabalho.dir/Aquecedor.cpp.obj	b46c57206dde4771
+146	1411	7254991398708370	CMakeFiles/oop_trabalho.dir/Lampada.cpp.obj	e8d13f47fa64502b
+77	1426	7254991398858392	CMakeFiles/oop_trabalho.dir/Aspersor.cpp.obj	b3ecef44329ea233
+141	1449	7254991399088394	CMakeFiles/oop_trabalho.dir/Refrigerador.cpp.obj	fc5d48d1262820b1
+19	1513	7254991399748402	CMakeFiles/oop_trabalho.dir/Aparelho.cpp.obj	f670c9685fed936f
+31	1545	7254991400038375	CMakeFiles/oop_trabalho.dir/Habitacao.cpp.obj	9dfd6626e54a93fb
+8	1721	7254991401778369	CMakeFiles/oop_trabalho.dir/main.cpp.obj	57a5885aef6c0d0e
+25	1783	7254991402444787	CMakeFiles/oop_trabalho.dir/Comando.cpp.obj	2b052753326d53dc
+37	1890	7254991403514821	CMakeFiles/oop_trabalho.dir/UI.cpp.obj	d109016a08e41447
+12	2021	7254991404832287	CMakeFiles/oop_trabalho.dir/Processador.cpp.obj	63c0659724727091
+3	2487	7254991409365246	CMakeFiles/oop_trabalho.dir/Zona.cpp.obj	5d4c6b36bf30b63f
+2488	3122	7254991415771198	oop_trabalho.exe	afdbe546e80e03bc

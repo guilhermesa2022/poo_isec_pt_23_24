@@ -1,7 +1,7 @@
 #include "Refrigerador.h"
 
 /***************************************** Public *****************************************/
-Refrigerador::Refrigerador(shared_ptr<Propriedade> temperatura, shared_ptr<Propriedade> ruido) : Aparelho() {
+Refrigerador::Refrigerador(weak_ptr<Propriedade> temperatura, weak_ptr<Propriedade> ruido) : Aparelho() {
     addProp("Temperatura", temperatura);
     addProp("Ruido", ruido);
 }

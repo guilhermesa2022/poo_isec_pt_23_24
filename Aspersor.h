@@ -6,7 +6,7 @@
 class Aspersor : public Aparelho {
 
 public:
-    Aspersor(shared_ptr<Propriedade> humidade, shared_ptr<Propriedade> vibracao, shared_ptr<Propriedade> fumo);
+    Aspersor(weak_ptr<Propriedade> humidade, weak_ptr<Propriedade> vibracao, weak_ptr<Propriedade> fumo);
     void liga()override;
     void desliga()override;
     void mudaEstado(const string & nome)override;

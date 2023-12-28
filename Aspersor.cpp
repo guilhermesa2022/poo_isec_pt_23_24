@@ -1,7 +1,7 @@
 #include "Aspersor.h"
 
 /***************************************** Public *****************************************/
-Aspersor::Aspersor(shared_ptr<Propriedade> humidade, shared_ptr<Propriedade> vibracao, shared_ptr<Propriedade> fumo) : Aparelho() {
+Aspersor::Aspersor(weak_ptr<Propriedade> humidade, weak_ptr<Propriedade> vibracao, weak_ptr<Propriedade> fumo) : Aparelho() {
     addProp("Humidade", humidade);
     addProp("Vibracao", vibracao);
     addProp("Fumo", fumo);
