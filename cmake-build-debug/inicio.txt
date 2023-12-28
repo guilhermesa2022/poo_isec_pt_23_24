@@ -1,7 +1,14 @@
-hnova 2 2
+hnova 4 4
 znova 0 0
 cnovo 1 s Temperatura
 cnovo 1 p ligar
 cnovo 1 a Aquecedor
+cnovo 1 a Aspersor
+cnovo 1 a Refrigerador
+cnovo 1 a Lampada
 rnova 1 0 menor 0 50
+rnova 1 0 menor 0 300
 asoc 1 0 1
+asoc 1 0 2
+asoc 1 0 3
+asoc 1 0 4

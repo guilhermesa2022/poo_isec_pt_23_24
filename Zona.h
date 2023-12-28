@@ -20,6 +20,7 @@ class Zona {
     vector<shared_ptr<Sensor>> sensores;
     vector<shared_ptr<Processador>> processadores;
     vector<shared_ptr<Aparelho>> aparelhos;
+    vector<string> nomes = {"AQUECEDOR", "ASPERSOR", "REFRIGERADOR", "LAMPADA"};
 
 public:
     ////////////////////////////construtores da class zona
@@ -54,12 +55,12 @@ public:
     [[nodiscard]]
     string listaPropriedades()const;
 
+    bool asoc(const int &idproce, const int &idaparelho);
+
     void eleminarSensor(const int &id);
     void eleminarRegraPorc(const int &idProc);
     void eleminarProcessador(const int &id);
     void eleminarAparelho(const int &id);
-
-    bool asoc(const int &idproce, const int &idaparelho);
 
     // ESTE MÉTODOS SÃO PARA O MÉTODO DE DA CLASSE HABITAÇÃO
     [[nodiscard]]
@@ -68,11 +69,26 @@ public:
     int numeroDeAparelhos()const;
     [[nodiscard]]
     int numeroDeProcessadores()const;
+    [[nodiscard]]
+    bool pmuda(const int & idproce, const string &novoComando);
+    string rlista(const int &idproce) const;
+    [[nodiscard]]
+    bool rrem(const int &idproce, const int &idregra);
+    [[nodiscard]]
+    bool ades(const int &IDproc, const int &IDaparelho);
+
+
 
     ~Zona();
 
 private:
     void iniciarPropriedadesDefault();
+    [[nodiscard]]
+    int procuraEmVector(vector<string> v, string str)const;// <- Devolve -1 se nao encontrar str. Se encontrar devolve o indice da posicao
+    bool addAquecedor();
+    bool addAspersor();
+    bool addRefrigerador();
+    bool addLampada();
 
 };
 

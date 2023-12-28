@@ -22,9 +22,7 @@ void Propriedade::aumentaValor(double val) {
             valor = getmax();
             return;
         }
-    }else{
-        valor += val;
-    }
+    }else {valor += val;}
 }
 
 void Propriedade::diminuiValor(double val) {
@@ -34,11 +32,7 @@ void Propriedade::diminuiValor(double val) {
             valor = getmin();
             return;
         }
-    }else{
-        valor -= val;
-    }
-
-
+    } else {valor -= val;}
 }
 
 double Propriedade::getValor() const {return valor;}

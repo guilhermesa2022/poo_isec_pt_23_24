@@ -234,6 +234,58 @@ bool Habitacao::asoc(const int &IDzona, const int &idproce, const int &idaparelh
     }
     return false;
 }
+
+bool Habitacao::pmuda(const int &IDzona, const int & idproce, const string &novoComando) {
+    for (int i = 0; i < linhas; ++i) {
+        for ( int j = 0; j < colunas; ++j) {
+            if(zonas[i][j] != nullptr) {
+                if (zonas[i][j]->getId() == IDzona){
+                    return zonas[i][j]->pmuda(idproce, novoComando);
+                }
+            }
+        }
+    }
+    return false;
+}
+
+string Habitacao::rlista(const int &IDzona, const int &idproce) const {
+for (int i = 0; i < linhas; ++i) {
+        for ( int j = 0; j < colunas; ++j) {
+            if(zonas[i][j] != nullptr){
+                if (zonas[i][j]->getId() == IDzona){
+                    return zonas[i][j]->rlista(idproce);
+                }
+            }
+        }
+    }
+    throw "Zona nao existe";
+}
+
+bool Habitacao::rrem(const int &IDzona, const int &idproce, const int &idregra) {
+for (int i = 0; i < linhas; ++i) {
+        for ( int j = 0; j < colunas; ++j) {
+            if(zonas[i][j] != nullptr){
+                if (zonas[i][j]->getId() == IDzona){
+                    return zonas[i][j]->rrem(idproce, idregra);
+                }
+            }
+        }
+    }
+    return false;
+}
+
+bool Habitacao::ades(const int &IDzonam, const int &IDproc, const int &regra) {
+    for (int i = 0; i < linhas; ++i) {
+        for ( int j = 0; j < colunas; ++j) {
+                if(zonas[i][j] != nullptr){
+                    if (zonas[i][j]->getId() == IDzonam){
+                        return zonas[i][j]->ades(IDproc, regra);
+                    }
+                }
+        }
+    }
+    return false;
+}
                             //////////////////////////////////////////////////////////////////
                             /////////// Comandos para gerir habitação e zonas/////////////////
                             //////////////////////////////////////////////////////////////////

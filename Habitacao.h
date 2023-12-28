@@ -37,6 +37,12 @@ public:
     bool crem(const int &IDzona, const string &tipo, const int &id);
     bool rnova(const int &IDzona, const int &idproce, const string &funcao, const int& idsensor ,const vector<double> &valores);
     bool asoc(const int &IDzona, const int &idproce, const int &idaparelho);
+    bool pmuda(const int &IDzona, const int & idproce, const string &novoComando);
+    [[nodiscard]]
+    string rlista(const int &IDzona, const int &idproce) const;
+    bool rrem(const int &IDzona, const int &idproce, const int &idregra);
+    bool ades(const int &IDzonam, const int &IDproc, const int &regra);
+    bool acom(const int &IDzona, const int &IDproc, const string &comdando);
                         //////////////////////////////////////////////////////////////////
                         /////////// Comandos para gerir habitação e zonas/////////////////
                         //////////////////////////////////////////////////////////////////

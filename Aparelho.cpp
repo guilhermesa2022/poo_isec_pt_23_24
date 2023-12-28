@@ -40,12 +40,17 @@ void Aparelho::addProp(string nome, shared_ptr<Propriedade> ptr) {
 }
 
 void Aparelho::aumentaProp(string nome, double val) {
-    props[nome]->aumentaValor(val);
+    string err = "Propriedade nao encontrada.";
+    auto it = props.find(nome);
+
+    if (it == props.end()) {throw err;}
+
+    it->second->aumentaValor(val);
 }
 
 int Aparelho::getid() const {return id;}
 
-void Aparelho::diminuiProp(string nome, int val) {
+void Aparelho::diminuiProp(string nome, double val) {
     string err = "Propriedade nao encontrada.";
     auto it = props.find(nome);
 
