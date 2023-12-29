@@ -117,7 +117,7 @@ bool Zona::asoc(const int &idproce, const int &idaparelho) {
     }
     if(it != processadores.end() && it2 != aparelhos.end()) {
         (*it)->addAparelho(weak_ptr<Aparelho>(*it2));
-        (*it)->alteraEstada();
+        //(*it)->alteraEstada(); // teste basico
         return true;
     } else {
         return false;
@@ -132,6 +132,19 @@ bool Zona::acom(const int &IDaparelho, const string &comdando) {
     } else{
         return false;
     }
+}
+
+void Zona::prox() {
+    for (auto s : sensores) {
+        s->prox();
+    }
+    for (auto p : processadores) {
+        p->alteraEstada();
+    }
+    for (auto a : aparelhos) {
+        a->prox();
+    }
+
 }
 
 int Zona::getNumeroPropriedades() const {
@@ -248,7 +261,7 @@ bool Zona::pmuda(const int &idproce, const string &novoComando) {
     auto it = std::find_if(processadores.begin(), processadores.end(),[idproce](const auto& processo) {return processo->getid() == idproce;});
     if (it != processadores.end()) {
         (*it)->setComando(novoComando);
-        (*it)->alteraEstada();
+        //(*it)->alteraEstada(); // teste basico
         return true;
     } else{
         return false;

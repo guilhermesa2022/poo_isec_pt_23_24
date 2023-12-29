@@ -35,7 +35,7 @@ string Aparelho::listProps() const {
     return oss.str();
 }
 
-void Aparelho::addProp(string nome, weak_ptr<Propriedade> ptr) {
+void Aparelho::addProp(string nome, weak_ptr<Propriedade> &ptr) {
     props.emplace(nome, ptr);
 }
 
@@ -71,6 +71,8 @@ int Aparelho::getPropValue(string nome) const {
     }
     throw "erro nao exisre propriedade";
 }
+
+bool Aparelho::getligado() const {return ligado;}
 
 Aparelho::~Aparelho() {
     props.clear();
