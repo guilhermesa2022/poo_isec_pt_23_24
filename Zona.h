@@ -25,6 +25,7 @@ class Zona {
 public:
     ////////////////////////////construtores da class zona
     explicit Zona(string nomeDaZona = "zona sem nome");
+    Zona(const Zona &zona);
     [[nodiscard]]
     string getAsStringSimple()const;
     [[nodiscard]]
@@ -79,6 +80,7 @@ public:
     [[nodiscard]]
     bool acom(const int &IDaparelho, const string &comdando);
     void prox();
+    shared_ptr<Processador> psalva(const int &idproce);
 
 
     ~Zona();

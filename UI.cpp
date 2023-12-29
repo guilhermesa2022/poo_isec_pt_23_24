@@ -108,14 +108,13 @@ void UI::START() {
     *dadosW << set_color(5) << move_to(0 , numdados++) << "\t\t\t\tBem Vindo\nAs dimensoes de uma habitacao tem obrigatoriamente de estar entre 2x2 e 4x4\n\tUma zona nao pode estar fora da habitacao";
 
     while (res != 1) {
-        cleandados();
         cmd = getCmd();
         if (i == 0) {
             dadosW = ini_dadosW_UI();
         }
         i++;
-        res = commandLine(cmd);
         cleandados();
+        res = commandLine(cmd);
     }
 }
 
@@ -396,6 +395,31 @@ int UI::commandLine(string cmd) {
                                 *dadosW << set_color(5) << move_to(0, numdados++) << "erro a enviar o comando";
                             }
 
+                        }
+                        break;
+                    case 19:
+                        if(habitacao != nullptr){
+                            // falta verificacao  de erros !
+                            // e so um teste para ver se  funcionar
+                            if(habitacao->psalva(stoi(inputAux[1]), stoi(inputAux[2]), inputAux[3])){
+                                atualizar_zonas_UI(linhas, colunas);
+                            }else{
+                                *dadosW << set_color(5) << move_to(0, numdados++) << "erro do psalva";
+                            }
+                        }
+                        break;
+                    case 21:
+                        if(habitacao != nullptr){
+                            habitacao->prem(inputAux[1]);
+                        }
+                        break;
+                    case 22:
+                        if(habitacao != nullptr){
+                            // falta verificacao  de erros !
+                            // e so um teste para ver se  funcionar
+                            string testo = habitacao->plista();
+                            *dadosW << set_color(5) << move_to(0, numdados) << testo;
+                            numdados += contlinhas(testo);
                         }
                         break;
                     default:

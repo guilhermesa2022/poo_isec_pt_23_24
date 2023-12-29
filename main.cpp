@@ -56,7 +56,8 @@ int main() {
     p.addRegra("entre", weak_ptr<Sensor>(sensor3), {-20, 0});
     cout << p.testar() << endl;
     cout << p.getAsSting();
-*/
+
+     //////////////////////////////////////////////////////////////////////// outro teste;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     shared_ptr<Propriedade> propriedade = make_shared<Propriedade>(0 , 100);
     shared_ptr<Propriedade> propriedade2 = make_shared<Propriedade>(0);
     Propriedade proteste(*propriedade2);
@@ -85,5 +86,46 @@ int main() {
     cout << "----------------------------------------------------------" << endl;
     cout << "----------------------------------------------------------" << endl;
     cout << "----------------------------------------------------------" << endl;
+    Zona z("zona1");
+    z.addSensor("Temperatura");
+    z.addSensor("Vibracao");
+    // TESTE DEPIS CIM OUTRO PARA VER SE DA ERRO CO LUUZ;
+    z.addSensor("Luz");
+    z.addProcessador("ligar");
+    z.addAparelho("AQUECEDOR");
+    z.addAparelho("ASPERSOR");
+    z.addAparelho("REFRIGERADOR");
+    z.addAparelho("LAMPADA");
+    z.asoc(0, 1);
+    z.asoc(0, 2);
+    z.addRegrasPorc(0, 0, "menor", {50});
+    z.addRegrasPorc(0, 0, "maior", {50});
+    Zona z2(z);
+    z.rrem(0, 1);
+    z.asoc(0, 2);
+    z.eleminarSensor(1);
+    z.eleminarAparelho(1);
+    z.eleminarProcessador(0);
+    cout << z.getAsString() << endl;
+    cout << "----------------------------------------------------------" << endl;
+    cout << z2.getAsString() << endl;
+     */
+    Habitacao * h = new Habitacao(4, 4);
+    h->add_Zona(0 ,0);
+    h->add_Zona(0 ,1);
+    h->add_Zona(0 ,2);
+    h->add_Zona(0 ,3);
+    h->add_Zona(1 ,0);
+    h->add_Zona(1 ,1);
+    h->add_Zona(1 ,2);
+    h->add_Zona(1 ,3);
+    Habitacao h2(*h);
+    h->removerZona(1);
+    h->removerZona(2);
+    h->removerZona(3);
+    cout << h->getAsStringSimple() << endl;
+    cout << "----------------------------------------------------------" << endl;
+    cout << h2.getAsStringSimple() << endl;
+
     return 0;
 }
