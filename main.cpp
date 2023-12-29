@@ -20,6 +20,7 @@ using namespace term;
 int main() {
     UI S;
     S.START();
+    /*
     shared_ptr<Propriedade> propriedade = make_shared<Propriedade>(0 , 100);
     shared_ptr<Propriedade> propriedade2 = make_shared<Propriedade>(0);
     shared_ptr<Propriedade> propriedade3 = make_shared<Propriedade>();
@@ -55,6 +56,34 @@ int main() {
     p.addRegra("entre", weak_ptr<Sensor>(sensor3), {-20, 0});
     cout << p.testar() << endl;
     cout << p.getAsSting();
+*/
+    shared_ptr<Propriedade> propriedade = make_shared<Propriedade>(0 , 100);
+    shared_ptr<Propriedade> propriedade2 = make_shared<Propriedade>(0);
+    Propriedade proteste(*propriedade2);
+    proteste.aumentaValor(102);
+    cout << "pros 1: " <<  propriedade2->getValor() << endl;
+    cout << "pros 2 copia: " <<  proteste.getValor() << endl;
+    shared_ptr<Propriedade> propriedade3 = make_shared<Propriedade>();
+    shared_ptr<Sensor> sensor = make_shared<Sensor>(weak_ptr<Propriedade>(propriedade));
+    shared_ptr<Sensor> sensor2 = make_shared<Sensor>(weak_ptr<Propriedade>(propriedade2));
+    shared_ptr<Sensor> sensor3 = make_shared<Sensor>(weak_ptr<Propriedade>(propriedade3));
+    shared_ptr<Aquecedor> *a = new shared_ptr<Aquecedor>(make_shared<Aquecedor>(propriedade, propriedade2));
+    auto a2 = make_shared<Aquecedor>(propriedade, propriedade2);
 
+    Processador *p = new Processador(1, "ligar");
+    (*p).addRegra("menor", weak_ptr<Sensor>(sensor), {50});
+    (*p).addRegra("igual", weak_ptr<Sensor>(sensor), {50});
+    (*p).addAparelho(*a);
+    Processador p1(*p);
+    p1.addAparelho(a2);
+    p1.removerRegra(1);
+    delete a;
+    cout << (*p).getAsSting() << endl;
+    cout << "----------------------------------------------------------" << endl;
+    cout << p1.getAsSting() << endl;
+
+    cout << "----------------------------------------------------------" << endl;
+    cout << "----------------------------------------------------------" << endl;
+    cout << "----------------------------------------------------------" << endl;
     return 0;
 }

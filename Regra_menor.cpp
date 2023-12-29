@@ -5,6 +5,10 @@
 #include "Regra_menor.h"
 #include <sstream>
 
+
+Regra_menor::Regra_menor(const Regra_menor &rhs) : RegraBase(rhs), X(rhs.X) {
+}
+
 Regra_menor::Regra_menor(weak_ptr<Sensor> _sensor, const double &_X) : RegraBase(_sensor), X(_X) {}
 bool Regra_menor::getEstado() {
     return RegraBase::getvalor() < X;
@@ -14,4 +18,7 @@ string Regra_menor::getAsString() const {
     os << RegraBase::getAsString();
     os << "X : " << X << " | fum: menor"<<endl;
     return os.str();
+}
+unique_ptr<RegraBase> Regra_menor::clone() {
+    return make_unique<Regra_menor>(*this);
 }

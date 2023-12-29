@@ -20,6 +20,7 @@ class Processador {
     vector<weak_ptr<Aparelho>> aparelhos;
 
 public:
+    Processador(const Processador &p);
     Processador(const int &_idzona,const string& _comando);
     ~Processador();
     bool addRegra(const string & funcao, weak_ptr<Sensor> sensor ,const vector<double> &valores);
