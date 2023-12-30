@@ -1,8 +1,20 @@
 hnova 4 4
 znova 0 0
+znova 0 1
+znova 0 2
+znova 0 3
 cnovo 1 s Temperatura
-cnovo 1 p ligar
+cnovo 2 s Temperatura
+cnovo 3 s Temperatura
+cnovo 4 s Temperatura
+cnovo 1 a aquecedor
 cnovo 1 a lampada
-rnova 1 0 menor 0 25
-rnova 1 0 maior 0 25
+cnovo 2 a aspersor
+cnovo 3 a refrigerador
+cnovo 4 a lampada
+pmod 2 Fumo 100
+pmod 2 Humidade 100
+cnovo 1 p ligar
+rnova 1 0 entre 0 -300 25
+asoc 1 0 0
 asoc 1 0 1

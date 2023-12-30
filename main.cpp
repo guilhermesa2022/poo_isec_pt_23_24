@@ -109,7 +109,6 @@ int main() {
     cout << z.getAsString() << endl;
     cout << "----------------------------------------------------------" << endl;
     cout << z2.getAsString() << endl;
-     */
     Habitacao * h = new Habitacao(4, 4);
     h->add_Zona(0 ,0);
     h->add_Zona(0 ,1);
@@ -126,6 +125,6 @@ int main() {
     cout << h->getAsStringSimple() << endl;
     cout << "----------------------------------------------------------" << endl;
     cout << h2.getAsStringSimple() << endl;
-
+    */
     return 0;
 }
