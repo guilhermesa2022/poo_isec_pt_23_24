@@ -15,7 +15,7 @@ using namespace std;
 
 int Processador::baseId = 0;
 
-Processador::Processador(const Processador &p) : id(baseId++), idzona(p.idzona), comando(p.comando) {
+Processador::Processador(const Processador &p) : id(p.id), idzona(p.idzona), comando(p.comando) {
     for(auto &r : p.regras){
         regras.push_back(r->clone());
     }
@@ -79,6 +79,10 @@ bool Processador::testar() const {
 
 int Processador::getid() const {
     return id;
+}
+
+int Processador::getidzona() const {
+    return idzona;
 }
 
 void Processador::alteraEstada() {

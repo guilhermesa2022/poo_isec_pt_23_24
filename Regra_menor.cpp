@@ -6,8 +6,6 @@
 #include <sstream>
 
 
-Regra_menor::Regra_menor(const Regra_menor &rhs) : RegraBase(rhs), X(rhs.X) {
-}
 
 Regra_menor::Regra_menor(weak_ptr<Sensor> _sensor, const double &_X) : RegraBase(_sensor), X(_X) {}
 bool Regra_menor::getEstado() {

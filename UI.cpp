@@ -408,6 +408,18 @@ int UI::commandLine(string cmd) {
                             }
                         }
                         break;
+                    case 20:
+                        if(habitacao != nullptr){
+                            // falta verificacao  de erros !
+                            // e so um teste para ver se  funcionar
+                            try {
+                                habitacao->prepoe(inputAux[1]);
+                                atualizar_zonas_UI(linhas, colunas);
+                            }catch(const char* exce) {
+                                *dadosW << set_color(5) << move_to(0, numdados++) << exce;
+                            }
+                        }
+                        break;
                     case 21:
                         if(habitacao != nullptr){
                             habitacao->prem(inputAux[1]);

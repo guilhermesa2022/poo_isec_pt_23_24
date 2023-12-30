@@ -366,6 +366,26 @@ void Habitacao::prem(const string &nome) {
     processadorsalva.erase(nome);
 }
 
+void Habitacao::prepoe(const string &nome) {
+    auto proc = processadorsalva.find(nome);
+    if(proc == processadorsalva.end()){
+        throw "Processador nao existe";
+    }
+    for (int i = 0; i < linhas; ++i) {
+        for ( int j = 0; j < colunas; ++j){
+            if(zonas[i][j] != nullptr){
+                if (zonas[i][j]->getId() == proc->second->getidzona()){
+                    zonas[i][j]->prepoe(make_shared<Processador>(*(proc->second)));
+                    return;
+                }
+            }
+        }
+    }
+
+    throw "Zona do proc nao existe :(";
+
+}
+
 
 
                             //////////////////////////////////////////////////////////////////

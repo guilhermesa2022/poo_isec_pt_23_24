@@ -30,6 +30,7 @@ public:
     bool testar() const;
     [[nodiscard]]
     int getid()const;
+    int getidzona()const;
     void eleminarRegra(int idRegra);
     void alteraEstada();
     void addAparelho(weak_ptr<Aparelho> _aparelhos);
@@ -38,7 +39,6 @@ public:
     string getRegraAsString() const;
     void removerRegra(const int &idRegra);
     void removerAparelho(const int &idAparelho);
-    void prox();
 
 };
 

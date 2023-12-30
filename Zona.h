@@ -36,6 +36,7 @@ public:
     int getId() const;
     [[nodiscard]]
     int getNumeroPropriedades()const;
+    void prepoe(shared_ptr<struct Processador> ptr);
 
     /////////////////////// criar uma propriedade nova e mudar o valor a funcao set nao deve ser usar e sum para testar
 

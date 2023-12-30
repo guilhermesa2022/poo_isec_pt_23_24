@@ -9,7 +9,6 @@
 class Regra_menor : public RegraBase {
     double X;
 public:
-    Regra_menor(const Regra_menor &rhs);
     Regra_menor(weak_ptr<Sensor> _sensor, const double &_X);
     [[nodiscard]]
     bool getEstado() final;

@@ -316,10 +316,15 @@ bool Zona::ades(const int &IDproc, const int &IDaparelho) {
 shared_ptr<Processador> Zona::psalva(const int &idproce) {
     auto it = std::find_if(processadores.begin(), processadores.end(),[idproce](const auto& processo) {return processo->getid() == idproce;});
     if (it != processadores.end()) {
-        return (*it);
+        return make_shared<Processador>(*(*it));;
     }else{
         return nullptr;
     }
+}
+
+void Zona::prepoe(shared_ptr<struct Processador> ptr) {
+    eleminarProcessador(ptr->getid());
+    processadores.push_back(ptr);
 }
 
 Zona::~Zona() {

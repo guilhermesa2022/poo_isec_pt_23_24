@@ -50,7 +50,7 @@ public:
     bool psalva(const int &IDzona, const int &idproce, const string &nome);
     string plista() const;
     void prem(const string &nome);
-
+    void prepoe(const string &nome);
                         //////////////////////////////////////////////////////////////////
                         /////////// Comandos para gerir habitação e zonas/////////////////
                         //////////////////////////////////////////////////////////////////
