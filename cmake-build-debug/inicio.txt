@@ -1,8 +1,0 @@
-hnova 4 4
-znova 0 0
-cnovo 1 s Temperatura
-cnovo 1 a aquecedor
-cnovo 1 a lampada
-cnovo 1 a aspersor
-cnovo 1 a refrigerador
-cnovo 1 p ligar

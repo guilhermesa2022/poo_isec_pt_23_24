@@ -1,3 +1,0 @@
-C:/Users/35193/OneDrive - ISEC/Ambiente de Trabalho/TrabalhoPratico/oop_trabalho/cmake-build-debug/CMakeFiles/oop_trabalho.dir
-C:/Users/35193/OneDrive - ISEC/Ambiente de Trabalho/TrabalhoPratico/oop_trabalho/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/35193/OneDrive - ISEC/Ambiente de Trabalho/TrabalhoPratico/oop_trabalho/cmake-build-debug/CMakeFiles/rebuild_cache.dir
