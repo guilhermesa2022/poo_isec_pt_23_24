@@ -1,0 +1,36 @@
+#ifndef CODIGOFONTE_PROPRIEDADE_H
+#define CODIGOFONTE_PROPRIEDADE_H
+
+#include <iostream>
+#include <optional>
+
+using namespace std;
+
+class Propriedade {
+    static int baseId;
+    const int id;
+    double valor;
+    optional<double> minimo;
+    optional<double> maximo;
+
+public:
+    //Propriedade(optional<double> max = {}, bool escolha = 'p');
+    Propriedade(optional<double> min = {}, optional<double> max = {});
+    void aumentaValor(double val);
+    void diminuiValor(double val);
+    [[nodiscard]]
+    double getValor()const;
+    [[nodiscard]]
+    bool has_max()const;
+    [[nodiscard]]
+    bool has_min()const;
+    [[nodiscard]]
+    double getmax()const;
+    [[nodiscard]]
+    double getmin()const;
+    [[nodiscard]]
+    int getid()const;
+
+};
+
+#endif //CODIGOFONTE_PROPRIEDADE_H
